@@ -10,18 +10,18 @@ data class SignUpDto(
     @field:NotBlank(message = "이메일을 입력해주세요!")
     @field:Email(message = "올바르지 못한 이메일 형식입니다!")
     @JsonProperty("email")
-    val _email : String?,
+    private val _email : String?,
 
     @field:NotBlank(message = "비밀번호를 입력해주세요!")
     @field:Pattern(
         regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()\\-=_+,.<>/?'\"\\[\\]{}\\\\|])[a-zA-Z0-9!@#$%^&*()\\-=_+,.<>/?'\"\\[\\]{}\\\\|]{8,20}\$",
         message = "올바르지 못한 비밀번호 형식입니다!")
     @JsonProperty("password")
-    val _password : String?,
+    private val _password : String?,
 
     @field:NotBlank(message = "이름을 입력해주세요!")
     @JsonProperty("name")
-    val _name : String?,
+    private val _name : String?,
 ) {
     val email : String
         get() = _email!!

@@ -1,6 +1,7 @@
 package com.example.checkcheck.member.service
 
 import com.example.checkcheck.member.dto.SignUpDto
+import com.example.checkcheck.member.entity.Member
 import com.example.checkcheck.member.repository.MemberRepository
 import org.springframework.stereotype.Service
 
@@ -12,7 +13,7 @@ class MemberService(
      * 회원 가입
      */
     fun signup(signUpDto: SignUpDto) : String {
-        val member = memberRepository.findByEmail(signUpDto.email)
+        val member : Member? = memberRepository.findByEmail(signUpDto.email)
         // 중복회원 검사
         if (member != null) {
             throw RuntimeException("이미 가입한 회원입니다!")
