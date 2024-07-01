@@ -33,5 +33,6 @@ jobs:
     - name : Build Dockerfile and Push DockerHub
       run: |
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker build -f Dockerfile -t ${{ secrets.DOCKER_REPONAME }}/checkcheck . 
-        docker push ${{ secrets.DOCKER_REPONAME }}/checkcheck
+        docker build -f Dockerfile -t ${{ secrets.DOCKER_REPONAME }} . 
+        docker tag ${{ secrets.DOCKER_REPONAME }}:latest ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPONAME }}:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPONAME }}:latest
