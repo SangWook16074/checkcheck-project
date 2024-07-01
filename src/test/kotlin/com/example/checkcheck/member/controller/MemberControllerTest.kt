@@ -46,6 +46,19 @@ class MemberControllerTest(
     }
 
     @Test
+    fun `회원가입이 성공적으로 이루어지면 클라이언트는 "회원가입이 완료되었습니다!"라는 데이터를 전달받는다`() {
+        every { memberService.signup(signUpDto) } returns "회원가입이 완료되었습니다!"
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.post("/api/member/signup")
+                .content("{\"email\":\"test@test.com\", \"password\":\"testtest1@\", \"name\":\"test\"}")
+                .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(
+            jsonPath("$.data").value("회원가입이 완료되었습니다!")
+        )
+    }
+
+    @Test
     fun `회원가입시 이메일 형식을 지키지 않는 DTO는 에러가 반환된다`() {
         every { memberService.signup(signUpDto) } returns "회원가입이 완료되었습니다!"
 
