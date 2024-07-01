@@ -4,7 +4,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://3.39.182.101:3306/checkcheck_db?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul"
+    url: "jdbc:mysql://mysql-container:3306/checkcheck_db?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul"
     username: checkcheck_admin
     password: checkcheck
 
