@@ -1,10 +1,15 @@
 package com.example.checkcheck.member.controller
 
+import com.example.checkcheck.common.authority.TokenInfo
 import com.example.checkcheck.common.config.SecurityConfig
+import com.example.checkcheck.common.dtos.BaseResponse
+import com.example.checkcheck.common.enums.ResultStatus
+import com.example.checkcheck.member.dto.LoginDto
 import com.example.checkcheck.member.dto.SignUpDto
 import com.example.checkcheck.member.service.MemberService
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
+import jdk.jfr.ContentType
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
@@ -34,6 +39,15 @@ class MemberControllerTest(
     val testName = "test"
     val signUpDto = SignUpDto(
         testEmail, testPassword, testName
+    )
+    val loginDto = LoginDto(
+        testEmail, testPassword
+    )
+
+
+    val loginSuccessToken = TokenInfo(
+        grantType = "Bearer",
+        accessToken = "testToken"
     )
 
     @Test
@@ -169,11 +183,45 @@ class MemberControllerTest(
         ).andExpect(
             jsonPath("$.status").value("ERROR")
         )
-            .andExpect(
-                jsonPath("$.data._name").value("이름을 입력해주세요!")
-            )
-            .andExpect(
-                jsonPath("$.resultMsg").value("에러가 발생했습니다!")
-            )
+        .andExpect(
+            jsonPath("$.data._name").value("이름을 입력해주세요!")
+        )
+        .andExpect(
+            jsonPath("$.resultMsg").value("에러가 발생했습니다!")
+        )
+    }
+
+    @Test
+    fun `회원가입에 성공한 사용자는 200의 응답코드를 전달받는다`() {
+        every { memberService.login(loginDto) } returns loginSuccessToken
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.post("/api/member/login")
+                .content("{\"email\":\"test@test.com\", \"password\":\"testtest1@\"}")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+            .andExpect(status().isOk)
+    }
+
+    @Test
+    fun `회원가입에 성공한 사용자는 토큰 정보를 전달 받는다`() {
+        every { memberService.login(loginDto) } returns loginSuccessToken
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.post("/api/member/login")
+                .content("{\"email\":\"test@test.com\", \"password\":\"testtest1@\"}")
+                .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(
+            jsonPath("$.status").value("SUCCESS")
+        )
+        .andExpect(
+            jsonPath("$.data.grantType").value("Bearer")
+        )
+        .andExpect(
+            jsonPath("$.data.accessToken").value("testToken")
+        )
+        .andExpect(
+            jsonPath("$.resultMsg").value("요청이 성공했습니다!")
+        )
     }
 }
