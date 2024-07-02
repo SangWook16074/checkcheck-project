@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @Tag(name = "Lecture-Controller", description = "강의 목록 조회, 개설, 삭제 관련 컨트롤러입니다")
 @RestController
-@RequestMapping("api/lecture")
+@RequestMapping("/api/lecture")
 
 class LectureController(
     private val lectureService : LectureService
