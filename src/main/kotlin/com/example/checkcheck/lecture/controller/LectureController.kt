@@ -1,6 +1,7 @@
 package com.example.checkcheck.lecture.controller
 
 import com.example.checkcheck.common.dtos.BaseResponse
+import com.example.checkcheck.common.dtos.CustomUser
 import com.example.checkcheck.lecture.dto.LectureRequestDto
 import com.example.checkcheck.lecture.dto.LectureResponseDto
 import com.example.checkcheck.lecture.service.LectureService
@@ -9,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -38,8 +40,9 @@ class LectureController(
     @Operation(summary = "강의 개설", description = "강의 개설 Api 입니다")
     @PostMapping("/open")
     private fun postLectures(@Valid @RequestBody lectureRequestDto: LectureRequestDto):
-            ResponseEntity<BaseResponse<LectureResponseDto>> {
-        val result = lectureService.postLectures(lectureRequestDto)
+            ResponseEntity<BaseResponse<String>> {
+        val memberId = (SecurityContextHolder.getContext().authentication.principal as CustomUser).id
+        val result = lectureService.postLectures(lectureRequestDto, memberId)
         return ResponseEntity.status(HttpStatus.CREATED).body(BaseResponse(data = result))
     }
 }
