@@ -1,5 +1,4 @@
 package com.example.checkcheck.member.unit
-
 import com.example.checkcheck.common.authority.JwtTokenProvider
 import com.example.checkcheck.member.dto.SignUpDto
 import com.example.checkcheck.member.entity.Member

@@ -29,7 +29,7 @@ class MemberExceptionHandler {
     @ExceptionHandler(BadCredentialsException::class)
     protected fun badCredentialExceptionHandler(exception : BadCredentialsException)
             : ResponseEntity<BaseResponse<Map<String, String>>> {
-        val errors = mapOf("로그인 실패" to "이메일 혹은 비밀번호를 다시 확인하세요.")
+        val errors = mapOf("로그인 실패" to "이메일 혹은 비밀번호를 다시 확인하세요!")
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
             BaseResponse(
                 status = ResultStatus.ERROR.name,
