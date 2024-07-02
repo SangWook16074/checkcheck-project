@@ -32,10 +32,7 @@ class MemberService(
         if (member != null) {
             throw RuntimeException("이미 가입한 회원입니다!")
         }
-        memberRepository.save(signUpDto.toMember())
-
-        member = signUpDto.toMember()
-        memberRepository.save(member)
+        member = memberRepository.save(signUpDto.toMember())
 
         val memberRole = MemberRole(
             id = null,
