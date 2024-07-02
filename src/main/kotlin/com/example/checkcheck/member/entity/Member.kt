@@ -3,6 +3,9 @@ package com.example.checkcheck.member.entity
 import jakarta.persistence.*
 
 @Entity
+@Table(
+    uniqueConstraints = [UniqueConstraint(name = "uk_member_email", columnNames = ["email"])]
+)
 class Member(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
