@@ -9,10 +9,12 @@ import com.example.checkcheck.member.entity.Member
 import com.example.checkcheck.member.entity.MemberRole
 import com.example.checkcheck.member.repository.MemberRepository
 import com.example.checkcheck.member.repository.MemberRoleRepository
+import jakarta.transaction.Transactional
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.stereotype.Service
 
+@Transactional
 @Service
 class MemberService(
     private val memberRepository: MemberRepository,
