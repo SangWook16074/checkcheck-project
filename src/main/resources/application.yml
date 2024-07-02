@@ -11,6 +11,7 @@ spring:
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
+
     properties:
       hibernate:
         storage_engine: innodb
