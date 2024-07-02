@@ -83,7 +83,7 @@ class MemberServiceTest {
         val result = memberService.login(loginDto)
 
         verify(exactly = 1) { authenticationManagerBuilder.`object`.authenticate(any()) }
-        verify(exactly = 1) { authenticationManagerBuilder.`object`.authenticate(any()) }
+        verify(exactly = 1) { jwtTokenProvider.createToken(authenticationManagerBuilder.`object`.authenticate(any())) }
 
         assertEquals(result.grantType, "Bearer")
         assertEquals(result.accessToken, "testToken")
