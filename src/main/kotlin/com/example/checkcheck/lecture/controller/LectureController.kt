@@ -11,7 +11,9 @@ import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -44,5 +46,15 @@ class LectureController(
         val memberId = (SecurityContextHolder.getContext().authentication.principal as CustomUser).id
         val result = lectureService.postLectures(lectureRequestDto, memberId)
         return ResponseEntity.status(HttpStatus.CREATED).body(BaseResponse(data = result))
+    }
+
+    /**
+     * 강의 id를 통해 강의 삭제 Api
+     */
+    @Operation(summary = "강의 삭제", description = "강의 삭제 Api 입니다")
+    @DeleteMapping("/{id}/delete")
+    private fun deleteLectures(@PathVariable id : Long) : ResponseEntity<BaseResponse<Any>> {
+        lectureService.deleteLectures(id)
+        return ResponseEntity.ok().body(BaseResponse(data = null))
     }
 }

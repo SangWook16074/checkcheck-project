@@ -26,7 +26,7 @@ class LectureService (
      */
     fun getLectures() : List<LectureResponseDto> {
         val result = lectureRepository.findAllByFetchJoin()
-        return result.map {it.toResponse() }
+        return result.map { it.toResponse() }
     }
 
     /**
@@ -68,5 +68,12 @@ class LectureService (
         // 강의 시간표 등록
         lectureScheduleRepository.save(lectureSchedule)
         return "강의가 등록되었습니다!"
+    }
+
+    /**
+     * 강의 삭제
+     */
+    fun deleteLectures(id : Long) : Unit {
+        lectureRepository.deleteById(id)
     }
 }
