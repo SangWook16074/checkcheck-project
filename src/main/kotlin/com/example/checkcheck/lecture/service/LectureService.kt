@@ -135,8 +135,8 @@ class LectureService (
         val lectureSchedule = lecture.lectureSchedule
             ?: throw LectureException("존재하지 않는 강의 시간표 입니다.")
 
-        if (lectureRequestDto.lectureStartAt.isAfter(LocalTime.of(18, 0))) {
-            throw LectureException("강의 종료는 오후 6시 이전여야 합니다.")
+        if (lectureRequestDto.lectureEndAt.isAfter(LocalTime.of(18, 0))) {
+            throw LectureException("강의 종료는 오후 6시 이전이어야 합니다.")
         }
 
         lectureSchedule.endAt = lectureRequestDto.lectureEndAt
@@ -148,7 +148,7 @@ class LectureService (
     /**
      * 강의 삭제
      */
-    fun deleteLectures(id: Long): Unit {
+    fun deleteLectures(id: Long) {
         lectureRepository.deleteById(id)
     }
 }

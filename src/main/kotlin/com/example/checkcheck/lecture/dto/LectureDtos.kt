@@ -2,7 +2,6 @@ package com.example.checkcheck.lecture.dto
 
 import com.example.checkcheck.common.annotation.ValidEnum
 import com.example.checkcheck.common.enums.WeekDay
-import com.example.checkcheck.lecture.entity.Lecture
 import com.example.checkcheck.lecture.entity.LectureSchedule
 import com.example.checkcheck.lecture.entity.ResisterPeriod
 import com.example.checkcheck.member.entity.Member
@@ -67,8 +66,7 @@ data class LectureRequestDto(
 
     @field:NotNull(message = "최대 수강 학생을 입력해주세요.")
     @JsonProperty("maxStudent")
-    private var _maxStudent: Int?,
-    val lecture: Lecture
+    private var _maxStudent: Int?
 ) {
 
     val title : String
