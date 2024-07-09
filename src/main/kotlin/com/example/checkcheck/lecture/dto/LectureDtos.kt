@@ -26,7 +26,7 @@ data class LectureRequestDto(
         message = "시간 형식을 확인해주세요! yyyy-MM-dd HH:mm"
     )
     @JsonProperty("resisterStartAt")
-    private var _resisterStartAt : String?,
+    private var _resisterStartAt: String?,
 
 
     @field:NotBlank(message = "강의종료시간을 입력해 주세요.")
@@ -62,12 +62,13 @@ data class LectureRequestDto(
         message = "MON, TUE, WED, THU, FRI, SAT, SUN 중 하나를 입력해주세요."
     )
     @JsonProperty("lectureWeekDay")
-    private var _lectureWeekDay : String?,
+    private var _lectureWeekDay: String?,
 
 
     @field:NotNull(message = "최대 수강 학생을 입력해주세요.")
     @JsonProperty("maxStudent")
-    private var _maxStudent : Int?
+    private var _maxStudent: Int?,
+    val lecture: Lecture
 ) {
 
     val title : String
@@ -100,7 +101,7 @@ data class LectureRequestDto(
 
 data class LectureResponseDto(
     var title: String,
-    var maxStudent : Int,
+    var maxStudent: Int,
     var resisterPeriod: ResisterPeriod?,
     var lectureSchedule: LectureSchedule?,
     var member: Member?,
