@@ -1,6 +1,5 @@
 package com.example.checkcheck.common.exceptions.member
 
-
 import com.example.checkcheck.common.dtos.BaseResponse
 import com.example.checkcheck.common.enums.ResultStatus
 import org.springframework.core.annotation.Order

@@ -32,6 +32,7 @@ class MemberController(
     /**
      * 로그인 Api
      */
+    @Operation(summary = "로그인", description = "회원의 로그인 Api입니다.")
     @PostMapping("/login")
     private fun login(@Valid @RequestBody loginDto: LoginDto) : ResponseEntity<BaseResponse<TokenInfo>> {
         val tokenInfo = memberService.login(loginDto)
