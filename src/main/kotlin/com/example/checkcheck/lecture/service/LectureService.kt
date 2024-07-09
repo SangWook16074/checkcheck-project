@@ -145,7 +145,6 @@ class LectureService (
         return result.toResponse()
     }
 
-
     /**
      * 강의 삭제
      */
