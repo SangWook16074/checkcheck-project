@@ -1,23 +1,30 @@
 package com.example.checkcheck.lecture.entity
 
 import com.example.checkcheck.lecture.dto.LectureResponseDto
+<<<<<<< HEAD
 import jakarta.persistence.*
 import java.time.LocalDateTime
+=======
+import com.example.checkcheck.member.entity.Member
+import jakarta.persistence.*
+>>>>>>> feature/lecture
 
 @Entity
+@Table(
+    uniqueConstraints = [UniqueConstraint(name = "uk_lecture_title", columnNames = ["title"])]
+)
 class Lecture(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id : Long?,
 
-    //강의명
     @Column(nullable = false, updatable = false, length = 50)
     var title: String,
 
-    //강사명
-    @Column(nullable = false, updatable = false, length = 50)
-    var name: String,
+    @Column(nullable = false, length = 100)
+    var maxStudent : Int,
 
+<<<<<<< HEAD
     //강의시간
     @Column(nullable = false, updatable = false, length = 50)
     var time: String,
@@ -30,12 +37,25 @@ class Lecture(
     @Column(nullable = false, updatable = false, length = 200)
     var information: String
 
+=======
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = ForeignKey(name = "fk_lecture_id_member_id"))
+    var member: Member
+>>>>>>> feature/lecture
 ) {
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "lecture", cascade = [CascadeType.ALL])
+    val resisterPeriod : ResisterPeriod? = null
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "lecture", cascade = [CascadeType.ALL])
+    val lectureSchedule : LectureSchedule? = null
+
+
     fun toResponse() : LectureResponseDto = LectureResponseDto(
         title = title,
-        name = name,
-        time = time,
-        period = period,
-        information = information
+        maxStudent = maxStudent,
+        resisterPeriod = resisterPeriod,
+        lectureSchedule = lectureSchedule,
+        member = member
     )
 }
