@@ -102,6 +102,6 @@ data class LectureResponseDto(
     var title: String,
     var maxStudent : Int,
     var resisterPeriod: ResisterPeriod?,
-    var lectureSchedule: LectureSchedule?,
+    var lectureSchedule: List<LectureSchedule>?,
     var member: Member?,
 )

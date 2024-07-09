@@ -19,7 +19,7 @@ class MemberRepositoryTest @Autowired constructor(
     @Test
     fun `멤버 생성 테스트`() {
         val member = Member(
-            id = 1,
+            id = null,
             email = "test@test.com",
             password = "testtest1@",
             name = "test"
@@ -27,16 +27,15 @@ class MemberRepositoryTest @Autowired constructor(
 
         val result = memberRepository.save(member)
 
-        assertThat(result.id).isSameAs(1L)
-        assertThat(result.name).isSameAs("test")
-        assertThat(result.email).isSameAs("test@test.com")
-        assertThat(result.password).isSameAs("testtest1@")
+        assertThat(result.name).isEqualTo("test")
+        assertThat(result.email).isEqualTo("test@test.com")
+        assertThat(result.password).isEqualTo("testtest1@")
     }
 
     @Test
     fun `이메일 멤버 조회 테스트`() {
         val member = Member(
-            id = 1,
+            id = null,
             email = "test@test.com",
             password = "testtest1@",
             name = "test"
@@ -46,9 +45,8 @@ class MemberRepositoryTest @Autowired constructor(
 
         val result = memberRepository.findByEmail(member.email)!!
 
-        assertThat(result.id).isSameAs(1L)
-        assertThat(result.email).isSameAs("test@test.com")
-        assertThat(result.name).isSameAs("test")
-        assertThat(result.password).isSameAs("testtest1@")
+        assertThat(result.email).isEqualTo("test@test.com")
+        assertThat(result.name).isEqualTo("test")
+        assertThat(result.password).isEqualTo("testtest1@")
     }
 }

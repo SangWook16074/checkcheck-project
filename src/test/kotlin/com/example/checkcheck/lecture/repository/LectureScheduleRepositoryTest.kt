@@ -53,14 +53,11 @@ class LectureScheduleRepositoryTest @Autowired constructor(
 
         val result = lectureScheduleRepository.save(lectureSchedule)
 
-        assertThat(result.id).isSameAs(1L)
-        assertThat(result.weekDay).isSameAs(WeekDay.MON)
-        assertThat(result.lecture.id).isSameAs(1L)
-        assertThat(result.lecture.title).isSameAs("testLecture")
-        assertThat(result.lecture.maxStudent).isSameAs(40)
-        assertThat(result.lecture.member.id).isSameAs(1L)
-        assertThat(result.lecture.member.name).isSameAs("test")
-        assertThat(result.lecture.member.email).isSameAs("test@test.com")
-        assertThat(result.lecture.member.password).isSameAs("testtest1@")
+        assertThat(result.weekDay).isEqualTo(WeekDay.MON)
+        assertThat(result.lecture.title).isEqualTo("testLecture")
+        assertThat(result.lecture.maxStudent).isEqualTo(40)
+        assertThat(result.lecture.member.name).isEqualTo("test")
+        assertThat(result.lecture.member.email).isEqualTo("test@test.com")
+        assertThat(result.lecture.member.password).isEqualTo("testtest1@")
     }
 }

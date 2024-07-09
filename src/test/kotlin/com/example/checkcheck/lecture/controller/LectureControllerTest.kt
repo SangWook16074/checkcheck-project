@@ -85,7 +85,7 @@ class LectureControllerTest {
                 status().isCreated
             )
             .andExpect(
-                jsonPath("$.result").value("SUCCESS")
+                jsonPath("$.status").value("SUCCESS")
             )
             .andExpect(
                 jsonPath("$.data").value("강의가 등록되었습니다!")

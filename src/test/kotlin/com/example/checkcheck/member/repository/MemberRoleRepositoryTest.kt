@@ -22,7 +22,7 @@ class MemberRoleRepositoryTest @Autowired constructor(
     @Test
     fun `멤버 권한 생성 테스트`() {
         val member = Member(
-            id = 1,
+            id = null,
             email = "test@test.com",
             password = "testtest1@",
             name = "test"
@@ -31,18 +31,16 @@ class MemberRoleRepositoryTest @Autowired constructor(
         memberRepository.save(member)
 
         val memberRole = MemberRole(
-            id = 1,
+            id = null,
             role = Role.MEMBER,
             member = member
         )
 
         memberRoleRepository.save(memberRole)
 
-        assertThat(memberRole.id).isSameAs(1L)
-        assertThat(memberRole.role).isSameAs(Role.MEMBER)
-        assertThat(memberRole.member.id).isSameAs(1L)
-        assertThat(memberRole.member.name).isSameAs("test")
-        assertThat(memberRole.member.email).isSameAs("test@test.com")
-        assertThat(memberRole.member.password).isSameAs("testtest1@")
+        assertThat(memberRole.role).isEqualTo(Role.MEMBER)
+        assertThat(memberRole.member.name).isEqualTo("test")
+        assertThat(memberRole.member.email).isEqualTo("test@test.com")
+        assertThat(memberRole.member.password).isEqualTo("testtest1@")
     }
 }

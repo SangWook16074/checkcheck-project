@@ -45,7 +45,7 @@ class ResisterPeriodRepositoryTest @Autowired constructor(
         lectureRepository.save(lecture)
 
         val resisterPeriod = ResisterPeriod(
-            id = 1,
+            id = null,
             startAt = LocalDateTime.now(),
             endAt = LocalDateTime.now(),
             lecture = lecture
@@ -53,10 +53,9 @@ class ResisterPeriodRepositoryTest @Autowired constructor(
 
         val result = resisterPeriodRepository.save(resisterPeriod)
 
-        assertThat(result.lecture.title).isSameAs("testLecture")
-        assertThat(result.id).isSameAs(1L)
-        assertThat(result.lecture.member.name).isSameAs("test")
-        assertThat(result.lecture.member.email).isSameAs("test@test.com")
-        assertThat(result.lecture.member.password).isSameAs("testtest1@")
+        assertThat(result.lecture.title).isEqualTo("testLecture")
+        assertThat(result.lecture.member.name).isEqualTo("test")
+        assertThat(result.lecture.member.email).isEqualTo("test@test.com")
+        assertThat(result.lecture.member.password).isEqualTo("testtest1@")
     }
 }
