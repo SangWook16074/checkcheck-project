@@ -22,7 +22,7 @@ data class LectureRequestDto(
 
     @field:NotBlank(message = "강의시작시간을 입력해 주세요.")
     @field:Pattern(
-        regexp = "^([12]\\\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\\\d|3[01])) ([0-1]\\d|2[0-4]):([0-5]\\d|60)\$",
+        regexp = "^([12]\\d{3})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])\\s([01]\\d|2[0-4]):([0-5]\\d|60)\$",
         message = "시간 형식을 확인해주세요! yyyy-MM-dd HH:mm"
     )
     @JsonProperty("resisterStartAt")
@@ -31,7 +31,7 @@ data class LectureRequestDto(
 
     @field:NotBlank(message = "강의종료시간을 입력해 주세요.")
     @field:Pattern(
-        regexp = "^([12]\\\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\\\d|3[01])) ([0-1]\\d|2[0-4]):([0-5]\\d|60)\$",
+        regexp = "^([12]\\d{3})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])\\s([01]\\d|2[0-4]):([0-5]\\d|60)\$",
         message = "시간 형식을 확인해주세요! yyyy-MM-dd HH:mm"
     )
     @JsonProperty("resisterEndAt")
