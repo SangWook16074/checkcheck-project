@@ -22,7 +22,7 @@ class LectureSchedule (
     @Temporal(TemporalType.TIME)
     var endAt : LocalTime,
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(foreignKey = ForeignKey(name = "fk_lecture_schedule_lecture_id"))
     var lecture: Lecture
 

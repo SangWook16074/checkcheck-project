@@ -7,6 +7,11 @@ import org.springframework.data.jpa.repository.Query
 interface LectureRepository : JpaRepository<Lecture, Long> {
     fun findByTitle(title : String) : Lecture?
 
-    @Query(value = "SELECT l FROM Lecture l LEFT JOIN FETCH l.resisterPeriod LEFT JOIN FETCH l.lectureSchedule")
+    @Query(value = """
+                SELECT DISTINCT l 
+                FROM Lecture l
+                LEFT JOIN FETCH l.resisterPeriod
+                LEFT JOIN FETCH l.lectureSchedule
+                    """)
     fun findAllByFetchJoin() : List<Lecture>
 }

@@ -32,6 +32,7 @@ dependencies {
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("io.mockk:mockk:1.13.11")
 	testImplementation("com.ninja-squad:springmockk:4.0.2")
+	testImplementation("com.h2database:h2:2.2.224")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	implementation("com.mysql:mysql-connector-j")
 	implementation("org.springframework.boot:spring-boot-starter-security")
