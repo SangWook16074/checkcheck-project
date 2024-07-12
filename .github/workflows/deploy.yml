@@ -15,11 +15,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
         java-version: '21'
-        distribution: 'temurin'
 
     # gradle 설정
     - name: Setup Gradle
@@ -49,3 +49,8 @@ jobs:
           sudo docker image rm checkcheck-server-container
           sudo docker-compose up -d
           sudo docker image prune -a -f
+    - name : Build Dockerfile and Push DockerHub
+      run: |
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker build -f Dockerfile -t ${{ secrets.DOCKER_REPONAME }}/checkcheck . 
+        docker push ${{ secrets.DOCKER_REPONAME }}/checkcheck

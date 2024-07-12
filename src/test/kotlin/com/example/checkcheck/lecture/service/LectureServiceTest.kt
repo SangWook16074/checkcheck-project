@@ -1,4 +1,4 @@
-package com.example.checkcheck.member.unit
+package com.example.checkcheck.lecture.service
 
 import com.example.checkcheck.common.enums.WeekDay
 import com.example.checkcheck.lecture.dto.LectureRequestDto
