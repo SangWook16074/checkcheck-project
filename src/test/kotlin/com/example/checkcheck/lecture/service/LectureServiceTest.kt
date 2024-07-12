@@ -26,7 +26,7 @@ class LectureServiceTest {
     private val resisterPeriodRepository : ResisterPeriodRepository = mockk()
     private val lectureScheduleRepository : LectureScheduleRepository = mockk()
     private val lectureService : LectureService
-            = LectureService(
+    = LectureService(
         memberRepository = memberRepository,
         lectureRepository = lectureRepository,
         resisterPeriodRepository = resisterPeriodRepository,
@@ -46,12 +46,12 @@ class LectureServiceTest {
 
         val testLectureRequestDto : LectureRequestDto = LectureRequestDto(
             _title = "test",
+            _resisterStartAt = "2024-07-03 09:00",
+            _resisterEndAt = "2024-07-30 10:00",
             _lectureStartAt = "09:00",
             _lectureEndAt = "10:00",
             _lectureWeekDay = "MON",
-            _resisterStartAt = "2024-07-03 09:00",
-            _resisterEndAt = "2024-07-30 10:00",
-            _maxStudent = 30
+            _maxStudent = 30,
         )
 
         val testLecture = Lecture(

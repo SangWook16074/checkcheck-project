@@ -25,4 +25,3 @@ spring:
 
 jwt:
   secret: ThisIsTestKeyThisIsTestKeyThisIsTestKeyThisIsTestKeyThisIsTestKeyThisIsTestKey
-

@@ -4,6 +4,7 @@ import com.example.checkcheck.common.dtos.BaseResponse
 import com.example.checkcheck.common.dtos.CustomUser
 import com.example.checkcheck.lecture.dto.LectureRequestDto
 import com.example.checkcheck.lecture.dto.LectureResponseDto
+import com.example.checkcheck.lecture.dto.LectureScheduleRequestDto
 import com.example.checkcheck.lecture.service.LectureService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -75,9 +76,9 @@ class LectureController(
      */
     @Operation(summary = "강의 요일 변경", description = "강의 요일 변경 Api 입니다")
     @PutMapping("/weekday/{id}")
-    private fun putLectureWeekDay(@Valid @RequestBody lectureRequestDto: LectureRequestDto, @PathVariable id: Long):
-            ResponseEntity<BaseResponse<LectureResponseDto>> {
-        val result = lectureService.putLectureWeekDay(lectureRequestDto, id,)
+    private fun putLectureWeekDay(@Valid @RequestBody lectureScheduleRequestDto: LectureScheduleRequestDto, @PathVariable id: Long):
+            ResponseEntity<BaseResponse<LectureScheduleRequestDto>> {
+        val result = lectureService.putLectureWeekDay(lectureScheduleRequestDto, id)
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
     }
 
@@ -86,9 +87,9 @@ class LectureController(
      */
     @Operation(summary = "강의 시작시간 변경", description = "강의 시작시간 변경 Api 입니다")
     @PutMapping("/startat/{id}")
-    private fun putLectureStartAt(@Valid @RequestBody lectureRequestDto: LectureRequestDto, @PathVariable id: Long):
-            ResponseEntity<BaseResponse<LectureResponseDto>> {
-        val result = lectureService.putLectureStartAt(lectureRequestDto, id,)
+    private fun putLectureStartAt(@Valid @RequestBody lectureScheduleRequestDto: LectureScheduleRequestDto, @PathVariable id: Long):
+            ResponseEntity<BaseResponse<LectureScheduleRequestDto>> {
+        val result = lectureService.putLectureStartAt(lectureScheduleRequestDto, id)
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
     }
 
@@ -97,9 +98,9 @@ class LectureController(
      */
     @Operation(summary = "강의 종료시간 변경", description = "강의 종료시간 변경 Api 입니다")
     @PutMapping("/endat/{id}")
-    private fun putLectureEndAt(@Valid @RequestBody lectureRequestDto: LectureRequestDto, @PathVariable id: Long):
-            ResponseEntity<BaseResponse<LectureResponseDto>> {
-        val result = lectureService.putLectureEndAt(lectureRequestDto, id,)
+    private fun putLectureEndAt(@Valid @RequestBody lectureScheduleRequestDto: LectureScheduleRequestDto, @PathVariable id: Long):
+            ResponseEntity<BaseResponse<LectureScheduleRequestDto>> {
+        val result = lectureService.putLectureEndAt(lectureScheduleRequestDto, id)
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
     }
 }
