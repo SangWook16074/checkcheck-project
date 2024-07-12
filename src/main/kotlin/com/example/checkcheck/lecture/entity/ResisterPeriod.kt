@@ -18,7 +18,7 @@ class ResisterPeriod(
     @Temporal(TemporalType.TIMESTAMP)
     val endAt : LocalDateTime,
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(foreignKey = ForeignKey(name = "fk_resister_period_lecture_id"))
     val lecture: Lecture
 )

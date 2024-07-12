@@ -1,4 +1,4 @@
-package com.example.checkcheck.member.unit
+package com.example.checkcheck.member.service
 import com.example.checkcheck.common.authority.JwtTokenProvider
 import com.example.checkcheck.common.authority.TokenInfo
 import com.example.checkcheck.common.enums.Role
