@@ -37,5 +37,6 @@ class Lecture(
         resisterPeriod = resisterPeriod,
         lectureSchedule = lectureSchedule,
         member = member
+
     )
 }
