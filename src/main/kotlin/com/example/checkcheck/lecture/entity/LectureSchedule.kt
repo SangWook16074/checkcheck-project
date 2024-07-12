@@ -2,6 +2,7 @@ package com.example.checkcheck.lecture.entity
 
 import com.example.checkcheck.common.enums.WeekDay
 import com.example.checkcheck.lecture.dto.LectureResponseDto
+import com.example.checkcheck.lecture.dto.LectureScheduleRequestDto
 import jakarta.persistence.*
 import java.time.LocalTime
 
@@ -28,11 +29,10 @@ class LectureSchedule (
     var lecture: Lecture
 
 ) {
-    fun toResponse() = LectureResponseDto(
-        title = lecture.title,
-        maxStudent = lecture.maxStudent,
-        resisterPeriod = lecture.resisterPeriod,
-        lectureSchedule = this, //현재 객체를 할당 (현재 객체 = lectureSchedule)
-        member = lecture.member
-    )
-}
+    fun toResponse() = LectureScheduleRequestDto(
+            id = this.id,
+            weekDay = this.weekDay,
+            startAt = this.startAt,
+            endAt = this.endAt,
+        )
+    }

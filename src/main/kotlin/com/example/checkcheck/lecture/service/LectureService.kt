@@ -3,6 +3,7 @@ package com.example.checkcheck.lecture.service
 import com.example.checkcheck.common.exceptions.lecture.LectureException
 import com.example.checkcheck.lecture.dto.LectureRequestDto
 import com.example.checkcheck.lecture.dto.LectureResponseDto
+import com.example.checkcheck.lecture.dto.LectureScheduleRequestDto
 import com.example.checkcheck.lecture.entity.Lecture
 import com.example.checkcheck.lecture.entity.LectureSchedule
 import com.example.checkcheck.lecture.entity.ResisterPeriod
@@ -92,14 +93,11 @@ class LectureService (
     /**
      * 강의시간표 요일 변경 Api
      */
-    fun putLectureWeekDay(lectureRequestDto: LectureRequestDto, id: Long): LectureResponseDto {
-        val lecture = lectureRepository.findByIdOrNull(id)
-            ?: throw LectureException("존재하지 않는 강의 ID 입니다.")
-
-        val lectureSchedule = lecture.lectureSchedule
+    fun putLectureWeekDay(lectureScheduleRequestDto: LectureScheduleRequestDto, id: Long): LectureScheduleRequestDto {
+        val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
             ?: throw LectureException("존재하지 않는 강의 시간표 입니다.")
 
-        lectureSchedule.weekDay = lectureRequestDto.lectureWeekDay
+        lectureSchedule.weekDay = lectureScheduleRequestDto.weekDay
 
         val result = lectureScheduleRepository.save(lectureSchedule)
         return result.toResponse()
@@ -108,18 +106,15 @@ class LectureService (
     /**
      * 강의 시작시간 변경 Api
      */
-    fun putLectureStartAt(lectureRequestDto: LectureRequestDto, id: Long): LectureResponseDto {
-        val lecture = lectureRepository.findByIdOrNull(id)
-            ?: throw LectureException("존재하지 않는 강의 ID 입니다.")
-
-        val lectureSchedule = lecture.lectureSchedule
+    fun putLectureStartAt(lectureScheduleRequestDto: LectureScheduleRequestDto, id: Long): LectureScheduleRequestDto {
+        val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
             ?: throw LectureException("존재하지 않는 강의 시간표 입니다.")
 
-        if (lectureRequestDto.lectureStartAt.isBefore(LocalTime.of(9, 0))) {
+        if (lectureScheduleRequestDto.startAt.isBefore(LocalTime.of(9, 0))) {
             throw LectureException("강의 시작은 오전 9시 이후여야 합니다.")
         }
 
-        lectureSchedule.startAt = lectureRequestDto.lectureStartAt
+        lectureSchedule.startAt = lectureScheduleRequestDto.startAt
 
         val result = lectureScheduleRepository.save(lectureSchedule)
         return result.toResponse()
@@ -128,18 +123,15 @@ class LectureService (
     /**
      * 강의 종료시간 변경 Api
      */
-    fun putLectureEndAt(lectureRequestDto: LectureRequestDto, id: Long): LectureResponseDto {
-        val lecture = lectureRepository.findByIdOrNull(id)
-            ?: throw LectureException("존재하지 않는 강의 ID 입니다.")
-
-        val lectureSchedule = lecture.lectureSchedule
+    fun putLectureEndAt(lectureScheduleRequestDto: LectureScheduleRequestDto, id: Long): LectureScheduleRequestDto {
+        val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
             ?: throw LectureException("존재하지 않는 강의 시간표 입니다.")
 
-        if (lectureRequestDto.lectureStartAt.isAfter(LocalTime.of(18, 0))) {
-            throw LectureException("강의 종료는 오후 6시 이전여야 합니다.")
+        if (lectureScheduleRequestDto.endAt.isAfter(LocalTime.of(18, 0))) {
+            throw LectureException("강의 종료는 오후 6시 이전이어야 합니다.")
         }
 
-        lectureSchedule.endAt = lectureRequestDto.lectureEndAt
+        lectureSchedule.endAt = lectureScheduleRequestDto.endAt
 
         val result = lectureScheduleRepository.save(lectureSchedule)
         return result.toResponse()
@@ -148,7 +140,7 @@ class LectureService (
     /**
      * 강의 삭제
      */
-    fun deleteLectures(id: Long): Unit {
+    fun deleteLectures(id: Long) {
         lectureRepository.deleteById(id)
     }
 }
