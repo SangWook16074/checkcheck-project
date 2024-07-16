@@ -10,16 +10,15 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 data class LectureRequestDto(
-    @field:NotBlank(message = "강의명을 입력해 주세요.")
+    @field:NotBlank(message = "강의명을 입력해주세요.")
     @JsonProperty("title")
     private var _title: String?,
 
 
-    @field:NotBlank(message = "강의시작시간을 입력해 주세요.")
+    @field:NotBlank(message = "수강신청 시작시간을 입력해주세요.")
     @field:Pattern(
         regexp = "^([12]\\d{3})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])\\s([01]\\d|2[0-4]):([0-5]\\d|60)\$",
         message = "시간 형식을 확인해주세요! yyyy-MM-dd HH:mm"
@@ -28,7 +27,7 @@ data class LectureRequestDto(
     private var _resisterStartAt: String?,
 
 
-    @field:NotBlank(message = "강의종료시간을 입력해 주세요.")
+    @field:NotBlank(message = "수강신청 종료시간을 입력해주세요.")
     @field:Pattern(
         regexp = "^([12]\\d{3})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])\\s([01]\\d|2[0-4]):([0-5]\\d|60)\$",
         message = "시간 형식을 확인해주세요! yyyy-MM-dd HH:mm"
@@ -37,7 +36,7 @@ data class LectureRequestDto(
     private var _resisterEndAt: String?,
 
 
-    @field:NotBlank(message = "수강신청 시작시간을 입력해 주세요.")
+    @field:NotBlank(message = "강의 시작시간을 입력해주세요.")
     @field:Pattern(
         regexp = "^([0-1]\\d|2[0-4]):([0-5]\\d|60)\$",
         message = "시간 형식을 확인해주세요! HH:mm"
@@ -46,7 +45,7 @@ data class LectureRequestDto(
     private var _lectureStartAt: String?,
 
 
-    @field:NotBlank(message = "수강신청 종료시간을 입력해 주세요.")
+    @field:NotBlank(message = "강의 종료시간을 입력해 주세요.")
     @field:Pattern(
         regexp = "^([0-1]\\d|2[0-4]):([0-5]\\d|60)\$",
         message = "시간 형식을 확인해주세요! HH:mm"
@@ -78,20 +77,17 @@ data class LectureRequestDto(
     val resisterEndAt : LocalDateTime
         get() = _resisterEndAt!!.toLocalDateTime()
 
-    val lectureStartAt : LocalTime
-        get() = _lectureStartAt!!.toLocalTime()
+    val lectureStartAt : String
+        get() = _lectureStartAt!!
 
-    val lectureEndAt : LocalTime
-        get() = _lectureEndAt!!.toLocalTime()
+    val lectureEndAt : String
+        get() = _lectureEndAt!!
 
     val lectureWeekDay : WeekDay
         get() = WeekDay.valueOf(_lectureWeekDay!!)
 
     val maxStudent : Int
         get() = _maxStudent!!
-
-    private fun String.toLocalTime() : LocalTime =
-        LocalTime.parse(this, DateTimeFormatter.ofPattern("HH:mm"))
 
     private fun String.toLocalDateTime() : LocalDateTime =
         LocalDateTime.parse(this, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
