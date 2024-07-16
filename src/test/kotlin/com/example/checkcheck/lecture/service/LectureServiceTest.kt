@@ -46,12 +46,12 @@ class LectureServiceTest {
 
         val testLectureRequestDto : LectureRequestDto = LectureRequestDto(
             _title = "test",
+            _resisterStartAt = "2024-07-03 09:00",
+            _resisterEndAt = "2024-07-30 10:00",
             _lectureStartAt = "09:00",
             _lectureEndAt = "10:00",
             _lectureWeekDay = "MON",
-            _resisterStartAt = "2024-07-03 09:00",
-            _resisterEndAt = "2024-07-30 10:00",
-            _maxStudent = 30
+            _maxStudent = 30,
         )
 
         val testLecture = Lecture(
