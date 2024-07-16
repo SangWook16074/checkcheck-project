@@ -58,7 +58,7 @@ class LectureController(
     fun getLecturesByUserId(@PathVariable memberId: Long):
             ResponseEntity<BaseResponse<List<LectureResponseDto>>> {
         val result = lectureService.getLecturesByUserId(memberId)
-        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
+        return ResponseEntity.status(HttpStatus.CREATED).body(BaseResponse(data = result))
     }
 
     /**
