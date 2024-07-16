@@ -35,4 +35,13 @@ data class LectureScheduleRequestDto(
     )
     @JsonProperty("lectureEndAt")
     val endAt: String
-)
+) {
+    val startAtLocalTime: LocalTime
+        get() = startAt.toLocalTime()
+
+    val endAtLocalTime: LocalTime
+        get() = endAt.toLocalTime()
+
+    private fun String.toLocalTime(): LocalTime =
+        LocalTime.parse(this, DateTimeFormatter.ofPattern("HH:mm"))
+}
