@@ -110,7 +110,7 @@ class LectureService (
         val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
             ?: throw LectureException("존재하지 않는 강의 시간표 입니다.")
 
-        if (lectureScheduleRequestDto.startAt.isBefore(LocalTime.of(9, 0))) {
+        if (lectureScheduleRequestDto.startAtLocalTime.isBefore(LocalTime.of(9, 0))) {
             throw LectureException("강의 시작은 오전 9시 이후여야 합니다.")
         }
 
@@ -127,7 +127,7 @@ class LectureService (
         val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
             ?: throw LectureException("존재하지 않는 강의 시간표 입니다.")
 
-        if (lectureScheduleRequestDto.endAt.isAfter(LocalTime.of(18, 0))) {
+        if (lectureScheduleRequestDto.endAtLocalTime.isAfter(LocalTime.of(18, 0))) {
             throw LectureException("강의 종료는 오후 6시 이전이어야 합니다.")
         }
 
