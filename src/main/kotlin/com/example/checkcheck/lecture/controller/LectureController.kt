@@ -54,11 +54,11 @@ class LectureController(
      * 사용자 id를 통해 강의 조회 Api
      */
     @Operation(summary = "사용자별 강의 조회", description = "사용자별 강의 조회 Api 입니다")
-    @PostMapping("/userlecture/{memberId}")
+    @GetMapping("/userlecture/{memberId}")
     fun getLecturesByUserId(@PathVariable memberId: Long):
             ResponseEntity<BaseResponse<List<LectureResponseDto>>> {
         val result = lectureService.getLecturesByUserId(memberId)
-        return ResponseEntity.status(HttpStatus.CREATED).body(BaseResponse(data = result))
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
     }
 
     /**
