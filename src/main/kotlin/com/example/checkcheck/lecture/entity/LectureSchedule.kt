@@ -26,9 +26,9 @@ class LectureSchedule (
 
 ) {
     fun toResponse() = LectureScheduleRequestDto(
-            id = this.id,
-            weekDay = this.weekDay,
-            startAt = this.startAt,
-            endAt = this.endAt,
-        )
-    }
+        id = this.id,
+        weekDay = this.weekDay,
+        startAt = this.startAt,
+        endAt = this.endAt,
+    )
+}
