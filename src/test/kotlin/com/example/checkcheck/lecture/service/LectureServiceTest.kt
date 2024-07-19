@@ -62,8 +62,8 @@ class LectureServiceTest {
         )
         val testLectureSchedule = LectureSchedule(
             id = 1,
-            startAt = LocalTime.now(),
-            endAt = LocalTime.now(),
+            startAt = "09:00",
+            endAt = "10:00",
             weekDay = WeekDay.MON,
             lecture = testLecture
         )
