@@ -45,8 +45,8 @@ class LectureScheduleRepositoryTest @Autowired constructor(
 
         val lectureSchedule = LectureSchedule(
             id = 1,
-            startAt = LocalTime.now(),
-            endAt = LocalTime.now(),
+            startAt = "09:00",
+            endAt = "10:00",
             weekDay = WeekDay.MON,
             lecture = lecture
         )
