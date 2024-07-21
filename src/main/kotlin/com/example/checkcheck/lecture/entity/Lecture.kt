@@ -1,8 +1,8 @@
 package com.example.checkcheck.lecture.entity
 
 import com.example.checkcheck.lecture.dto.LectureResponseDto
-import com.example.checkcheck.member.entity.Member
 import jakarta.persistence.*
+import com.example.checkcheck.member.entity.Member
 
 @Entity
 @Table(
@@ -37,5 +37,6 @@ class Lecture(
         resisterPeriod = resisterPeriod,
         lectureSchedule = lectureSchedule,
         member = member
+
     )
 }

@@ -39,8 +39,4 @@ class MemberController(
         return ResponseEntity.status(HttpStatus.OK)
             .body(BaseResponse(data = tokenInfo))
     }
-
-
-
-
 }

@@ -1,6 +1,7 @@
 package com.example.checkcheck.lecture.repository
 
 import com.example.checkcheck.lecture.entity.Lecture
+import com.example.checkcheck.member.entity.Member
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 
@@ -14,4 +15,6 @@ interface LectureRepository : JpaRepository<Lecture, Long> {
                 LEFT JOIN FETCH l.lectureSchedule
                     """)
     fun findAllByFetchJoin() : List<Lecture>
+
+    fun findByMember(member: Member): List<Lecture>
 }
