@@ -1,8 +1,10 @@
 package com.example.checkcheck.lecture.entity
 
 import com.example.checkcheck.lecture.dto.LectureResponseDto
-import jakarta.persistence.*
+
 import com.example.checkcheck.member.entity.Member
+import com.example.checkcheck.memo.entity.Memo
+import jakarta.persistence.*
 
 @Entity
 @Table(
@@ -22,6 +24,7 @@ class Lecture(
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = ForeignKey(name = "fk_lecture_id_member_id"))
     var member: Member
+
 ) {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "lecture", cascade = [CascadeType.ALL])
@@ -30,13 +33,15 @@ class Lecture(
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lecture", cascade = [CascadeType.ALL])
     val lectureSchedule : List<LectureSchedule>? = null
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "memo", cascade = [CascadeType.ALL])
+    val memo: List<Memo>? = null
+
 
     fun toResponse() : LectureResponseDto = LectureResponseDto(
         title = title,
         maxStudent = maxStudent,
         resisterPeriod = resisterPeriod,
         lectureSchedule = lectureSchedule,
-        member = member
-
+        member = member,
     )
 }

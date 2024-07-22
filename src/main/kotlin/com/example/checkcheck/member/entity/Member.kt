@@ -1,5 +1,6 @@
 package com.example.checkcheck.member.entity
 
+import com.example.checkcheck.memo.entity.Memo
 import jakarta.persistence.*
 
 @Entity
@@ -22,5 +23,8 @@ class Member(
 ) {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = [CascadeType.ALL])
     val role: List<MemberRole>? = null
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "memo", cascade = [CascadeType.ALL])
+    val memo: List<Memo>? = null
 
 }
