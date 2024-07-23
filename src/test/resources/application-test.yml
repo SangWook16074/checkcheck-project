@@ -1,16 +1,14 @@
 spring:
-  application:
-    name: checkcheck
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://mysql-container:3306/checkcheck_db?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul"
-    username: checkcheck_admin
-    password: checkcheck
+    driver-class-name: org.h2.Driver
+    url: "jdbc:h2:mem:crypto-labs"
+    username: sa
+    password:
 
   jpa:
     database: mysql
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.H2Dialect
 
     properties:
       hibernate:
@@ -22,6 +20,3 @@ spring:
       ddl-auto: create
     open-in-view: false
     show-sql: true
-
-jwt:
-  secret: ThisIsTestKeyThisIsTestKeyThisIsTestKeyThisIsTestKeyThisIsTestKeyThisIsTestKey
