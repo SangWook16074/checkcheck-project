@@ -4,7 +4,6 @@ import com.example.checkcheck.common.dtos.BaseResponse
 import com.example.checkcheck.memo.dto.MemoRequestDto
 import com.example.checkcheck.memo.dto.MemoResponseDto
 import com.example.checkcheck.memo.service.MemoService
-import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus

@@ -1,13 +1,10 @@
 package com.example.checkcheck.memo.service
 
 import com.example.checkcheck.common.exceptions.memo.MemoException
-import com.example.checkcheck.lecture.repository.LectureRepository
-import com.example.checkcheck.member.repository.MemberRepository
 import com.example.checkcheck.memo.dto.MemoRequestDto
 import com.example.checkcheck.memo.dto.MemoResponseDto
 import com.example.checkcheck.memo.entity.Memo
 import com.example.checkcheck.memo.repository.MemoRepository
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 

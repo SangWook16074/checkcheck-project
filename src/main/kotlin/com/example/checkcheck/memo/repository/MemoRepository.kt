@@ -1,7 +1,5 @@
 package com.example.checkcheck.memo.repository
 
-import com.example.checkcheck.lecture.entity.Lecture
-import com.example.checkcheck.member.entity.Member
 import com.example.checkcheck.memo.entity.Memo
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -18,7 +16,7 @@ interface MemoRepository : JpaRepository<Memo, Long> {
 
     // 특정 사용자 ID를 기반으로 모든 메모 조회
     @Query("SELECT m FROM Memo m WHERE m.member = :member")
-    fun findByMemberId(@Param("memberId") memberId: Long): List<Memo>
+    fun findByMemberId(@Param("member") member: Long): List<Memo>
 
 }
 
