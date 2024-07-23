@@ -13,14 +13,12 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @SecurityRequirement(name = "BearerAuth")
-@Tag(name = "메모 Api 컨트롤러", description =  "게시글 생성,조회,수정,삭제 Api 명세서입니다.")
-
+@Tag(name = "메모 Api 컨트롤러", description =  "메모 생성,조회,수정,삭제 Api 명세서입니다.")
 @RestController
 @RequestMapping("/api/memos")
-class MemoController {
-
-    @Autowired
-    private lateinit var memoService: MemoService
+class MemoController (
+    private val memoService: MemoService
+){
 
     /**
      * 모든 메모를 조회하는 Api

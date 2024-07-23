@@ -13,13 +13,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class MemoService (
-    @Autowired
     private val memoRepository: MemoRepository,
-
-    @Autowired
     private val memberRepository: MemberRepository,
-
-    @Autowired
     private val lectureRepository: LectureRepository
 ) {
 
