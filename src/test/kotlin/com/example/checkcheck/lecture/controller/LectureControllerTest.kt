@@ -60,7 +60,7 @@ class LectureControllerTest {
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/api/lecture/open")
-                .content("{\"title\" : \"testLecture\",\"lectureStartAt\" : \"09:00\",\"lectureEndAt\" : \"10:00\",\"lectureWeekDay\" : \"MON\",\"resisterStartAt\" : \"2024-07-03 09:00\",\"resisterEndAt\" : \"2024-07-30 10:00\",\"maxStudent\" : 40 }"
+                .content("{\"title\" : \"testLecture\",\"lectureStartAt\" : \"09:00\",\"lectureEndAt\" : \"10:00\",\"lectureWeekDay\" : \"MON\",\"registerStartAt\" : \"2024-07-03 09:00\",\"registerEndAt\" : \"2024-07-30 10:00\",\"maxStudent\" : 40 }"
                 )
                 .contentType(MediaType.APPLICATION_JSON)
         )
@@ -77,7 +77,7 @@ class LectureControllerTest {
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/api/lecture/open")
-                .content("{\"title\" : \"testLecture\",\"lectureStartAt\" : \"09:00\",\"lectureEndAt\" : \"10:00\",\"lectureWeekDay\" : \"MON\",\"resisterStartAt\" : \"2024-07-03 09:00\",\"resisterEndAt\" : \"2024-07-30 10:00\",\"maxStudent\" : 40 }"
+                .content("{\"title\" : \"testLecture\",\"lectureStartAt\" : \"09:00\",\"lectureEndAt\" : \"10:00\",\"lectureWeekDay\" : \"MON\",\"registerStartAt\" : \"2024-07-03 09:00\",\"registerEndAt\" : \"2024-07-30 10:00\",\"maxStudent\" : 40 }"
                 )
                 .contentType(MediaType.APPLICATION_JSON)
         )
@@ -100,7 +100,7 @@ class LectureControllerTest {
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/api/lecture/open")
-                .content("{\"title\" : \"testLecture\",\"lectureStartAt\" : \"0900\",\"lectureEndAt\" : \"10:00\",\"lectureWeekDay\" : \"MN\",\"resisterStartAt\" : \"2024-07-03 09:00\",\"resisterEndAt\" : \"2024-07-30 10:00\",\"maxStudent\" : 40 }"
+                .content("{\"title\" : \"testLecture\",\"lectureStartAt\" : \"0900\",\"lectureEndAt\" : \"10:00\",\"lectureWeekDay\" : \"MN\",\"registerStartAt\" : \"2024-07-03 09:00\",\"registerEndAt\" : \"2024-07-30 10:00\",\"maxStudent\" : 40 }"
                 )
                 .contentType(MediaType.APPLICATION_JSON)
         )

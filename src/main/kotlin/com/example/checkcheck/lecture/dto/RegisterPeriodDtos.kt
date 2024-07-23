@@ -14,7 +14,7 @@ data class RegisterPeriodRequestDto(
         regexp = "^([12]\\d{3})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])\\s([01]\\d|2[0-3]):([0-5]\\d)\$",
         message = "시간 형식을 확인해주세요! yyyy-MM-dd HH:mm"
     )
-    @JsonProperty("resisterStartAt")
+    @JsonProperty("registerStartAt")
     private var _startAt: String?,
 
     @field:NotBlank(message = "수강신청 종료시간을 입력해주세요.")
@@ -22,7 +22,7 @@ data class RegisterPeriodRequestDto(
         regexp = "^([12]\\d{3})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])\\s([01]\\d|2[0-3]):([0-5]\\d)\$",
         message = "시간 형식을 확인해주세요! yyyy-MM-dd HH:mm"
     )
-    @JsonProperty("resisterEndAt")
+    @JsonProperty("registerEndAt")
     private var _endAt: String?
 ) {
     val startAt: LocalDateTime

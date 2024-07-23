@@ -4,11 +4,10 @@ import com.example.checkcheck.common.enums.WeekDay
 import com.example.checkcheck.lecture.dto.LectureRequestDto
 import com.example.checkcheck.lecture.entity.Lecture
 import com.example.checkcheck.lecture.entity.LectureSchedule
-import com.example.checkcheck.lecture.entity.ResisterPeriod
+import com.example.checkcheck.lecture.entity.RegisterPeriod
 import com.example.checkcheck.lecture.repository.LectureRepository
 import com.example.checkcheck.lecture.repository.LectureScheduleRepository
-import com.example.checkcheck.lecture.repository.ResisterPeriodRepository
-import com.example.checkcheck.lecture.service.LectureService
+import com.example.checkcheck.lecture.repository.RegisterPeriodRepository
 import com.example.checkcheck.member.entity.Member
 import com.example.checkcheck.member.repository.MemberRepository
 import io.mockk.every
@@ -17,19 +16,18 @@ import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.springframework.data.repository.findByIdOrNull
 import java.time.LocalDateTime
-import java.time.LocalTime
 import kotlin.test.assertEquals
 
 class LectureServiceTest {
     private val memberRepository : MemberRepository = mockk()
     private val lectureRepository : LectureRepository = mockk()
-    private val resisterPeriodRepository : ResisterPeriodRepository = mockk()
+    private val registerPeriodRepository : RegisterPeriodRepository = mockk()
     private val lectureScheduleRepository : LectureScheduleRepository = mockk()
     private val lectureService : LectureService
     = LectureService(
         memberRepository = memberRepository,
         lectureRepository = lectureRepository,
-        resisterPeriodRepository = resisterPeriodRepository,
+        registerPeriodRepository = registerPeriodRepository,
         lectureScheduleRepository = lectureScheduleRepository,)
 
     @Test
@@ -46,8 +44,8 @@ class LectureServiceTest {
 
         val testLectureRequestDto : LectureRequestDto = LectureRequestDto(
             _title = "test",
-            _resisterStartAt = "2024-07-03 09:00",
-            _resisterEndAt = "2024-07-30 10:00",
+            _registerStartAt = "2024-07-03 09:00",
+            _registerEndAt = "2024-07-30 10:00",
             _lectureStartAt = "09:00",
             _lectureEndAt = "10:00",
             _lectureWeekDay = "MON",
@@ -67,7 +65,7 @@ class LectureServiceTest {
             weekDay = WeekDay.MON,
             lecture = testLecture
         )
-        val testResisterPeriod = ResisterPeriod(
+        val testRegisterPeriod = RegisterPeriod(
             id = 1,
             startAt = LocalDateTime.now(),
             endAt = LocalDateTime.now(),
@@ -76,7 +74,7 @@ class LectureServiceTest {
         every { memberRepository.findByIdOrNull(1) } returns member
         every { lectureRepository.save(any()) } returns testLecture
         every { lectureRepository.findByTitle(testLectureRequestDto.title) } returns null
-        every { resisterPeriodRepository.save(any()) } returns testResisterPeriod
+        every { registerPeriodRepository.save(any()) } returns testRegisterPeriod
         every { lectureScheduleRepository.save(any()) } returns testLectureSchedule
 
         val result = lectureService.postLectures(testLectureRequestDto, 1)
@@ -85,7 +83,7 @@ class LectureServiceTest {
         verify(exactly = 1) { memberRepository.findByIdOrNull(1) }
         verify(exactly = 1) { lectureRepository.save(any()) }
         verify(exactly = 1) { lectureScheduleRepository.save(any()) }
-        verify(exactly = 1) { resisterPeriodRepository.save(any()) }
+        verify(exactly = 1) { registerPeriodRepository.save(any()) }
 
         assertEquals(result, "강의가 등록되었습니다!")
     }
