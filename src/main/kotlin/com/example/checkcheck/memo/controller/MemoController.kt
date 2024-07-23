@@ -7,15 +7,14 @@ import com.example.checkcheck.memo.service.MemoService
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@SecurityRequirement(name = "BearerAuth")
 @Tag(name = "메모 Api 컨트롤러", description =  "메모 생성,조회,수정,삭제 Api 명세서입니다.")
 @RestController
 @RequestMapping("/api/memos")
+
 class MemoController (
     private val memoService: MemoService
 ){

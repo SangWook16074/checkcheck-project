@@ -17,7 +17,7 @@ interface MemoRepository : JpaRepository<Memo, Long> {
 
 
     // 특정 사용자 ID를 기반으로 모든 메모 조회
-    @Query("SELECT m FROM Memo m WHERE m.member.id = :memberId")
+    @Query("SELECT m FROM Memo m WHERE m.member = :member")
     fun findByMemberId(@Param("memberId") memberId: Long): List<Memo>
 
 }

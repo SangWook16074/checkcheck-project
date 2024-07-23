@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service
 @Service
 class MemoService (
     private val memoRepository: MemoRepository,
-    private val memberRepository: MemberRepository,
-    private val lectureRepository: LectureRepository
+//    private val memberRepository: MemberRepository,
+//    private val lectureRepository: LectureRepository
 ) {
 
     /**
