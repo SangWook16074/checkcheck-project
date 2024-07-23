@@ -33,9 +33,6 @@ class Lecture(
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lecture", cascade = [CascadeType.ALL])
     val lectureSchedule : List<LectureSchedule>? = null
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "memo", cascade = [CascadeType.ALL])
-    val memo: List<Memo>? = null
-
 
     fun toResponse() : LectureResponseDto = LectureResponseDto(
         title = title,
