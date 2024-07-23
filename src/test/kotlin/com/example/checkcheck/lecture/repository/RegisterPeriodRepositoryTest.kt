@@ -1,7 +1,7 @@
 package com.example.checkcheck.lecture.repository
 
 import com.example.checkcheck.lecture.entity.Lecture
-import com.example.checkcheck.lecture.entity.ResisterPeriod
+import com.example.checkcheck.lecture.entity.RegisterPeriod
 import com.example.checkcheck.member.entity.Member
 import com.example.checkcheck.member.repository.MemberRepository
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
@@ -17,10 +17,10 @@ import java.time.LocalDateTime
 @ActiveProfiles("test")
 @TestPropertySource(locations = ["classpath:application-test.yml"])
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class ResisterPeriodRepositoryTest @Autowired constructor(
+class RegisterPeriodRepositoryTest @Autowired constructor(
     private val memberRepository: MemberRepository,
     private val lectureRepository: LectureRepository,
-    private val resisterPeriodRepository: ResisterPeriodRepository
+    private val registerPeriodRepository: RegisterPeriodRepository
 ) {
 
 
@@ -44,14 +44,14 @@ class ResisterPeriodRepositoryTest @Autowired constructor(
         memberRepository.save(member)
         lectureRepository.save(lecture)
 
-        val resisterPeriod = ResisterPeriod(
+        val registerPeriod = RegisterPeriod(
             id = null,
             startAt = LocalDateTime.now(),
             endAt = LocalDateTime.now(),
             lecture = lecture
         )
 
-        val result = resisterPeriodRepository.save(resisterPeriod)
+        val result = registerPeriodRepository.save(registerPeriod)
 
         assertThat(result.lecture.title).isEqualTo("testLecture")
         assertThat(result.lecture.member.name).isEqualTo("test")

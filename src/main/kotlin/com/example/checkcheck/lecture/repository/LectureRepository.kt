@@ -11,7 +11,7 @@ interface LectureRepository : JpaRepository<Lecture, Long> {
     @Query(value = """
                 SELECT DISTINCT l 
                 FROM Lecture l
-                LEFT JOIN FETCH l.resisterPeriod
+                LEFT JOIN FETCH l.registerPeriod
                 LEFT JOIN FETCH l.lectureSchedule
                     """)
     fun findAllByFetchJoin() : List<Lecture>
