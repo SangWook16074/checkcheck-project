@@ -3,7 +3,7 @@ package com.example.checkcheck.lecture.dto
 import com.example.checkcheck.common.annotation.ValidEnum
 import com.example.checkcheck.common.enums.WeekDay
 import com.example.checkcheck.lecture.entity.LectureSchedule
-import com.example.checkcheck.lecture.entity.ResisterPeriod
+import com.example.checkcheck.lecture.entity.RegisterPeriod
 import com.example.checkcheck.member.entity.Member
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.NotBlank
@@ -23,8 +23,8 @@ data class LectureRequestDto(
         regexp = "^([12]\\d{3})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])\\s([01]\\d|2[0-4]):([0-5]\\d|60)\$",
         message = "시간 형식을 확인해주세요! yyyy-MM-dd HH:mm"
     )
-    @JsonProperty("resisterStartAt")
-    private var _resisterStartAt: String?,
+    @JsonProperty("registerStartAt")
+    private var _registerStartAt: String?,
 
 
     @field:NotBlank(message = "수강신청 종료시간을 입력해주세요.")
@@ -32,8 +32,8 @@ data class LectureRequestDto(
         regexp = "^([12]\\d{3})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])\\s([01]\\d|2[0-4]):([0-5]\\d|60)\$",
         message = "시간 형식을 확인해주세요! yyyy-MM-dd HH:mm"
     )
-    @JsonProperty("resisterEndAt")
-    private var _resisterEndAt: String?,
+    @JsonProperty("registerEndAt")
+    private var _registerEndAt: String?,
 
 
     @field:NotBlank(message = "강의 시작시간을 입력해주세요.")
@@ -71,11 +71,11 @@ data class LectureRequestDto(
     val title : String
         get() = _title!!
 
-    val resisterStartAt : LocalDateTime
-        get() = _resisterStartAt!!.toLocalDateTime()
+    val registerStartAt : LocalDateTime
+        get() = _registerStartAt!!.toLocalDateTime()
 
-    val resisterEndAt : LocalDateTime
-        get() = _resisterEndAt!!.toLocalDateTime()
+    val registerEndAt : LocalDateTime
+        get() = _registerEndAt!!.toLocalDateTime()
 
     val lectureStartAt : String
         get() = _lectureStartAt!!
@@ -96,7 +96,7 @@ data class LectureRequestDto(
 data class LectureResponseDto(
     var title: String,
     var maxStudent: Int,
-    var resisterPeriod: ResisterPeriod?,
+    var registerPeriod: RegisterPeriod?,
     var lectureSchedule: List<LectureSchedule>?,
     var member: Member?,
 )

@@ -3,7 +3,7 @@ package com.example.checkcheck.lecture.repository
 import com.example.checkcheck.common.enums.WeekDay
 import com.example.checkcheck.lecture.entity.Lecture
 import com.example.checkcheck.lecture.entity.LectureSchedule
-import com.example.checkcheck.lecture.entity.ResisterPeriod
+import com.example.checkcheck.lecture.entity.RegisterPeriod
 import com.example.checkcheck.member.entity.Member
 import com.example.checkcheck.member.repository.MemberRepository
 import org.assertj.core.api.Assertions.assertThat
@@ -15,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestPropertySource
 import java.time.LocalDateTime
-import java.time.LocalTime
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -25,7 +24,7 @@ class LectureRepositoryTest @Autowired constructor(
     private val memberRepository: MemberRepository,
     private val lectureRepository: LectureRepository,
     private val lectureScheduleRepository: LectureScheduleRepository,
-    private val resisterPeriodRepository: ResisterPeriodRepository,
+    private val registerPeriodRepository: RegisterPeriodRepository,
 ) {
     val member = Member(
         id = null,
@@ -75,7 +74,7 @@ class LectureRepositoryTest @Autowired constructor(
             lecture = l
         )
 
-        val resisterPeriod = ResisterPeriod(
+        val registerPeriod = RegisterPeriod(
             id = null,
             startAt = LocalDateTime.now(),
             endAt = LocalDateTime.now(),
@@ -83,7 +82,7 @@ class LectureRepositoryTest @Autowired constructor(
         )
 
         lectureScheduleRepository.save(lectureSchedule)
-        resisterPeriodRepository.save(resisterPeriod)
+        registerPeriodRepository.save(registerPeriod)
 
         val result = lectureRepository.findAllByFetchJoin()
 
