@@ -4,7 +4,7 @@ import jakarta.persistence.*
 import java.time.LocalDateTime
 
 @Entity
-class ResisterPeriod(
+class RegisterPeriod(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id : Long?,
@@ -18,6 +18,6 @@ class ResisterPeriod(
     val endAt : LocalDateTime,
 
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(foreignKey = ForeignKey(name = "fk_resister_period_lecture_id"))
+    @JoinColumn(foreignKey = ForeignKey(name = "fk_register_period_lecture_id"))
     val lecture: Lecture
 )

@@ -28,7 +28,7 @@ class Lecture(
 ) {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "lecture", cascade = [CascadeType.ALL])
-    val resisterPeriod : ResisterPeriod? = null
+    val registerPeriod : RegisterPeriod? = null
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lecture", cascade = [CascadeType.ALL])
     val lectureSchedule : List<LectureSchedule>? = null
@@ -37,7 +37,7 @@ class Lecture(
     fun toResponse() : LectureResponseDto = LectureResponseDto(
         title = title,
         maxStudent = maxStudent,
-        resisterPeriod = resisterPeriod,
+        registerPeriod = registerPeriod,
         lectureSchedule = lectureSchedule,
         member = member,
     )
