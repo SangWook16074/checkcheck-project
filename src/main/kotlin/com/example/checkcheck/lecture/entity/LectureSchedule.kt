@@ -10,23 +10,23 @@ class LectureSchedule (
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null,
 
-    @Column(nullable = false)
+    @Column
     var lectureStartDate: String,
 
-    @Column(nullable = false)
+    @Column
     var lectureEndDate: String,
 
-    @Column(nullable = false)
+    @Column
     @Enumerated(EnumType.STRING)
     var weekDay: WeekDay,
 
-    @Column(nullable = false)
+    @Column
     var lectureStartAt: String,
 
-    @Column(nullable = false)
+    @Column
     var lectureEndAt: String,
 
-    @Column(nullable = false)
+    @Column
     var lecturePlace: String,
 
     @Column(length = 300)

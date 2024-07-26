@@ -10,16 +10,16 @@ class RegisterPeriod(
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null,
 
-    @Column(nullable = false)
+    @Column
     val registerStartDate: String,
 
-    @Column(nullable = false)
+    @Column
     val registerEndDate: String,
 
-    @Column(nullable = false)
+    @Column
     val registerStartAt: String,
 
-    @Column(nullable = false)
+    @Column
     val registerEndAt: String,
 
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
