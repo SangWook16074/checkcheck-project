@@ -14,7 +14,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestPropertySource
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -44,14 +46,12 @@ class LectureRepositoryTest @Autowired constructor(
         val lecture = Lecture(
             id = null,
             title = "testLecture",
-            maxStudent = 40,
             member = member
         )
         val result = lectureRepository.save(lecture)
 
 
         assertThat(result.title).isEqualTo("testLecture")
-        assertThat(result.maxStudent).isEqualTo(40)
         assertThat(result.member.name).isEqualTo("test")
         assertThat(result.member.email).isEqualTo("test@test.com")
         assertThat(result.member.password).isEqualTo("testtest1@")
@@ -62,22 +62,27 @@ class LectureRepositoryTest @Autowired constructor(
         val lecture = Lecture(
             id = null,
             title = "testLecture",
-            maxStudent = 40,
             member = member
         )
         val l = lectureRepository.save(lecture)
         val lectureSchedule = LectureSchedule(
             id = null,
-            startAt = "09:00",
-            endAt = "10:00",
+            lectureStartDate = "23-07-01",
+            lectureEndDate = "23-07-30",
+            lectureStartAt = "09:00",
+            lectureEndAt = "10:00",
             weekDay = WeekDay.MON,
+            lecturePlace = "Test Room",
+            lectureInfo = "Test Lecture Information",
             lecture = l
         )
 
         val registerPeriod = RegisterPeriod(
             id = null,
-            startAt = LocalDateTime.now(),
-            endAt = LocalDateTime.now(),
+            registerStartDate = "23-02-01",
+            registerEndDate = "24-02-25",
+            registerStartAt = "10:00",
+            registerEndAt = "11:00",
             lecture = l
         )
 

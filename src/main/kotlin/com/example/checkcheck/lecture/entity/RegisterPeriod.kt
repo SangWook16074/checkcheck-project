@@ -11,16 +11,16 @@ class RegisterPeriod(
     val id: Long? = null,
 
     @Column(nullable = false)
-    val registerStartDate: LocalDate,
+    val registerStartDate: String,
 
     @Column(nullable = false)
-    val registerEndDate: LocalDate,
+    val registerEndDate: String,
 
     @Column(nullable = false)
-    val registerStartAt: LocalTime,
+    val registerStartAt: String,
 
     @Column(nullable = false)
-    val registerEndAt: LocalTime,
+    val registerEndAt: String,
 
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(foreignKey = ForeignKey(name = "fk_register_period_lecture_id"))
