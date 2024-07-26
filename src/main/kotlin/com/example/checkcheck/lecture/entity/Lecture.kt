@@ -16,9 +16,6 @@ class Lecture(
     @Column(nullable = false, updatable = false, length = 50)
     var title: String,
 
-    @Column(nullable = false, length = 100)
-    var maxStudent : Int,
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = ForeignKey(name = "fk_lecture_id_member_id"))
     var member: Member
@@ -33,10 +30,8 @@ class Lecture(
 
     fun toResponse() : LectureResponseDto = LectureResponseDto(
         title = title,
-        maxStudent = maxStudent,
         registerPeriod = registerPeriod,
         lectureSchedule = lectureSchedule,
         member = member
-
     )
 }

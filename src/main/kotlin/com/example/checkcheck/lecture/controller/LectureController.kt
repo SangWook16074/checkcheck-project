@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "Lecture-Controller", description = "강의 목록 조회, 개설, 삭제 관련 컨트롤러입니다")
+@Tag(name = "Lecture-Controller", description = "강의 및 수강신청 조회, 개설, 수정, 삭제 관련 컨트롤러입니다")
 @RestController
 @RequestMapping("/api/lecture")
 
