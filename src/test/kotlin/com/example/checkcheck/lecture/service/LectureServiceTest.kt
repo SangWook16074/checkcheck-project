@@ -44,31 +44,41 @@ class LectureServiceTest {
 
         val testLectureRequestDto : LectureRequestDto = LectureRequestDto(
             _title = "test",
-            _registerStartAt = "2024-07-03 09:00",
-            _registerEndAt = "2024-07-30 10:00",
+            _lectureStartDate = "23-07-01",
+            _lectureEndDate = "23-07-30",
             _lectureStartAt = "09:00",
             _lectureEndAt = "10:00",
             _lectureWeekDay = "MON",
-            _maxStudent = 30,
+            _lecturePlace = "Test Room",
+            _lectureInfo = "Test Lecture Information",
+            _registerStartDate = "23-02-01",
+            _registerEndDate = "24-02-25",
+            _registerStartAt = "10:00",
+            _registerEndAt = "11:00",
         )
 
         val testLecture = Lecture(
             id = 1,
             title = "test",
-            maxStudent = 30,
             member = member
         )
         val testLectureSchedule = LectureSchedule(
-            id = 1,
-            startAt = "09:00",
-            endAt = "10:00",
+            id = null,
+            lectureStartDate = "23-03-01",
+            lectureEndDate = "23-06-30",
+            lectureStartAt = "10:00",
+            lectureEndAt = "13:00",
             weekDay = WeekDay.MON,
+            lecturePlace = "Test Room",
+            lectureInfo = "Test Lecture Information",
             lecture = testLecture
         )
         val testRegisterPeriod = RegisterPeriod(
-            id = 1,
-            startAt = LocalDateTime.now(),
-            endAt = LocalDateTime.now(),
+            id = null,
+            registerStartDate = "23-02-01",
+            registerEndDate = "24-02-25",
+            registerStartAt = "10:00",
+            registerEndAt = "11:00",
             lecture = testLecture
         )
         every { memberRepository.findByIdOrNull(1) } returns member
@@ -102,7 +112,6 @@ class LectureServiceTest {
         val testLecture = Lecture(
             id = 1,
             title = "test",
-            maxStudent = 30,
             member = member
         )
         every { lectureRepository.findAllByFetchJoin() } returns listOf(testLecture)

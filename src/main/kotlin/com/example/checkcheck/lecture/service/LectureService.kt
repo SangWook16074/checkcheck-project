@@ -14,6 +14,7 @@ import com.example.checkcheck.member.repository.MemberRepository
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 import java.time.LocalTime
 
 @Transactional
@@ -44,29 +45,37 @@ class LectureService (
         // 사용자 유효성 검사
         val member = memberRepository.findByIdOrNull(memberId)
             ?: throw RuntimeException("존재하지 않는 사용자입니다!")
+
         lecture = Lecture(
             id = null,
             title = lectureRequestDto.title,
-            maxStudent = lectureRequestDto.maxStudent,
             member = member
         )
 
         // 강의 등록
         lectureRepository.save(lecture)
+
         val registerPeriod = RegisterPeriod(
             id = null,
-            startAt = lectureRequestDto.registerStartAt,
-            endAt = lectureRequestDto.registerEndAt,
+            registerStartDate = lectureRequestDto.registerStartDate,
+            registerEndDate = lectureRequestDto.registerEndDate,
+            registerStartAt = lectureRequestDto.registerStartAt,
+            registerEndAt = lectureRequestDto.registerEndAt,
             lecture = lecture
         )
 
         // 수강신청 기간 등록
         registerPeriodRepository.save(registerPeriod)
+
         val lectureSchedule = LectureSchedule(
             id = null,
-            startAt = lectureRequestDto.lectureStartAt,
-            endAt = lectureRequestDto.lectureEndAt,
+            lectureStartDate = lectureRequestDto.lectureStartDate,
+            lectureEndDate = lectureRequestDto.lectureEndDate,
             weekDay = lectureRequestDto.lectureWeekDay,
+            lectureStartAt = lectureRequestDto.lectureStartAt,
+            lectureEndAt = lectureRequestDto.lectureEndAt,
+            lecturePlace = lectureRequestDto.lecturePlace,
+            lectureInfo = lectureRequestDto.lectureInfo,
             lecture = lecture
         )
 
@@ -110,11 +119,11 @@ class LectureService (
         val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
             ?: throw LectureException("존재하지 않는 강의 시간표 입니다.")
 
-        if (lectureScheduleRequestDto.startAtLocalTime.isBefore(LocalTime.of(9, 0))) {
+        if (lectureScheduleRequestDto.lectureStartAtLocalTime.isBefore(LocalTime.of(9, 0))) {
             throw LectureException("강의 시작은 오전 9시 이후여야 합니다.")
         }
 
-        lectureSchedule.startAt = lectureScheduleRequestDto.startAt
+        lectureSchedule.lectureStartAt = lectureScheduleRequestDto.lectureStartAt
 
         val result = lectureScheduleRepository.save(lectureSchedule)
         return result.toResponse()
@@ -127,11 +136,11 @@ class LectureService (
         val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
             ?: throw LectureException("존재하지 않는 강의 시간표 입니다.")
 
-        if (lectureScheduleRequestDto.endAtLocalTime.isAfter(LocalTime.of(18, 0))) {
+        if (lectureScheduleRequestDto.lectureEndAtLocalTime.isAfter(LocalTime.of(18, 0))) {
             throw LectureException("강의 종료는 오후 6시 이전이어야 합니다.")
         }
 
-        lectureSchedule.endAt = lectureScheduleRequestDto.endAt
+        lectureSchedule.lectureEndAt = lectureScheduleRequestDto.lectureEndAt
 
         val result = lectureScheduleRepository.save(lectureSchedule)
         return result.toResponse()

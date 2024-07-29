@@ -37,7 +37,6 @@ class RegisterPeriodRepositoryTest @Autowired constructor(
         val lecture = Lecture(
             id = null,
             title = "testLecture",
-            maxStudent = 40,
             member = member
 
         )
@@ -46,8 +45,10 @@ class RegisterPeriodRepositoryTest @Autowired constructor(
 
         val registerPeriod = RegisterPeriod(
             id = null,
-            startAt = LocalDateTime.now(),
-            endAt = LocalDateTime.now(),
+            registerStartDate = "23-02-01",
+            registerEndDate = "24-02-25",
+            registerStartAt = "10:00",
+            registerEndAt = "11:00",
             lecture = lecture
         )
 
