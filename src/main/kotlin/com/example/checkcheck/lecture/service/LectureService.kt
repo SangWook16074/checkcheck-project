@@ -57,10 +57,10 @@ class LectureService (
 
         val registerPeriod = RegisterPeriod(
             id = null,
-            registerStartDate = LocalDate.parse(lectureRequestDto.registerStartDate),
-            registerEndDate = LocalDate.parse(lectureRequestDto.registerEndDate),
-            registerStartAt = LocalTime.parse(lectureRequestDto.registerStartAt),
-            registerEndAt = LocalTime.parse(lectureRequestDto.registerEndAt),
+            registerStartDate = lectureRequestDto.registerStartDate,
+            registerEndDate = lectureRequestDto.registerEndDate,
+            registerStartAt = lectureRequestDto.registerStartAt,
+            registerEndAt = lectureRequestDto.registerEndAt,
             lecture = lecture
         )
 
