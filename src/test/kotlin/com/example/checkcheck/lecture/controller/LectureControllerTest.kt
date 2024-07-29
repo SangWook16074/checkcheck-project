@@ -60,7 +60,23 @@ class LectureControllerTest {
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/api/lecture/open")
-                .content("{\"title\" : \"testLecture\",\"lectureStartAt\" : \"09:00\",\"lectureEndAt\" : \"10:00\",\"lectureWeekDay\" : \"MON\",\"registerStartAt\" : \"2024-07-03 09:00\",\"registerEndAt\" : \"2024-07-30 10:00\",\"maxStudent\" : 40 }"
+                .content(
+                    """
+            {
+                "title": "testLecture",
+                "lectureStartDate": "21-07-03",
+                "lectureEndDate": "21-07-30",
+                "lectureStartAt": "09:00",
+                "lectureEndAt": "10:00",
+                "lectureWeekDay": "MON",
+                "lecturePlace": "Test Room",
+                "registerStartDate": "21-07-01",
+                "registerEndDate": "21-07-30",
+                "registerStartAt": "09:00",
+                "registerEndAt": "10:00",
+                "lectureInfo": "Test Lecture Information"
+            }
+            """.trimIndent()
                 )
                 .contentType(MediaType.APPLICATION_JSON)
         )
