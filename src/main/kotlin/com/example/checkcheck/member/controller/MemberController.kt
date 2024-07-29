@@ -23,7 +23,7 @@ class MemberController(
      */
     @Operation(summary = "회원가입", description = "회원의 회원가입 Api입니다.")
     @PostMapping("/signup")
-    private fun signup(@Valid @RequestBody signUpDto: SignUpDto) : ResponseEntity<BaseResponse<String>> {
+    fun signup(@Valid @RequestBody signUpDto: SignUpDto) : ResponseEntity<BaseResponse<String>> {
         val result = memberService.signup(signUpDto)
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(BaseResponse(data = result))
@@ -34,9 +34,20 @@ class MemberController(
      */
     @Operation(summary = "로그인", description = "회원의 로그인 Api입니다.")
     @PostMapping("/login")
-    private fun login(@Valid @RequestBody loginDto: LoginDto) : ResponseEntity<BaseResponse<TokenInfo>> {
+    fun login(@Valid @RequestBody loginDto: LoginDto) : ResponseEntity<BaseResponse<TokenInfo>> {
         val tokenInfo = memberService.login(loginDto)
         return ResponseEntity.status(HttpStatus.OK)
             .body(BaseResponse(data = tokenInfo))
+    }
+
+    /**
+     * 이메일 중복 확인 API
+     */
+    @Operation(summary = "이메일 중복 확인", description = "회원가입 시 이메일 중복을 확인하는 Api입니다.")
+    @GetMapping("isExist/{email}")
+    fun checkEmail(@PathVariable email: String): ResponseEntity<BaseResponse<Boolean>> {
+        val emailExists = memberService.checkEmailExists(email)
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(BaseResponse(data = emailExists))
     }
 }

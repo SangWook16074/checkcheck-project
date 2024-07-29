@@ -27,13 +27,15 @@ class MemberService(
      * 회원 가입
      */
     fun signup(signUpDto: SignUpDto) : String {
-        var member : Member? = memberRepository.findByEmail(signUpDto.email)
-        // 중복회원 검사
-        if (member != null) {
-            throw RuntimeException("이미 가입한 회원입니다!")
-        }
+//        var member : Member? = memberRepository.findByEmail(signUpDto.email)
+//        /**
+//         *  중복 검사
+//          */
+//        if (member != null) {
+//            throw RuntimeException("이미 가입한 회원입니다!")
+//        }
 
-        member = memberRepository.save(signUpDto.toMember())
+        val member = memberRepository.save(signUpDto.toMember())
 
         val memberRole = MemberRole(
             id = null,
@@ -56,5 +58,11 @@ class MemberService(
         return jwtTokenProvider.createToken(authentication)
     }
 
+    /**
+     * 이메일 중복 확인
+     */
+    fun checkEmailExists(email: String): Boolean {
+        return memberRepository.existsByEmail(email)
+    }
 
 }
