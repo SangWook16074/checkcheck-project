@@ -1,6 +1,5 @@
 package com.example.checkcheck.member.entity
 
-import com.example.checkcheck.memo.entity.Memo
 import jakarta.persistence.*
 
 @Entity

@@ -24,7 +24,7 @@ class LectureServiceTest {
     private val registerPeriodRepository : RegisterPeriodRepository = mockk()
     private val lectureScheduleRepository : LectureScheduleRepository = mockk()
     private val lectureService : LectureService
-    = LectureService(
+            = LectureService(
         memberRepository = memberRepository,
         lectureRepository = lectureRepository,
         registerPeriodRepository = registerPeriodRepository,

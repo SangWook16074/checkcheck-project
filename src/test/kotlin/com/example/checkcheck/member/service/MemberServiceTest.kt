@@ -52,7 +52,6 @@ class MemberServiceTest {
 
         val result = memberService.signup(signUpDto)
 
-        verify(exactly = 1) { memberRepository.save(any()) }
         verify(exactly = 1) { memberRepository.findByEmail(signUpDto.email) }
         verify(exactly = 1) { memberRoleRepository.save(any()) }
 

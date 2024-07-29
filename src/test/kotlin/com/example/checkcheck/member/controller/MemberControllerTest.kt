@@ -176,12 +176,12 @@ class MemberControllerTest(
         ).andExpect(
             jsonPath("$.status").value("ERROR")
         )
-        .andExpect(
-            jsonPath("$.data._name").value("이름을 입력해주세요!")
-        )
-        .andExpect(
-            jsonPath("$.resultMsg").value("에러가 발생했습니다!")
-        )
+            .andExpect(
+                jsonPath("$.data._name").value("이름을 입력해주세요!")
+            )
+            .andExpect(
+                jsonPath("$.resultMsg").value("에러가 발생했습니다!")
+            )
     }
 
     @Test
@@ -207,14 +207,14 @@ class MemberControllerTest(
         ).andExpect(
             jsonPath("$.status").value("SUCCESS")
         )
-        .andExpect(
-            jsonPath("$.data.grantType").value("Bearer")
-        )
-        .andExpect(
-            jsonPath("$.data.accessToken").value("testToken")
-        )
-        .andExpect(
-            jsonPath("$.resultMsg").value("요청이 성공했습니다!")
-        )
+            .andExpect(
+                jsonPath("$.data.grantType").value("Bearer")
+            )
+            .andExpect(
+                jsonPath("$.data.accessToken").value("testToken")
+            )
+            .andExpect(
+                jsonPath("$.resultMsg").value("요청이 성공했습니다!")
+            )
     }
 }

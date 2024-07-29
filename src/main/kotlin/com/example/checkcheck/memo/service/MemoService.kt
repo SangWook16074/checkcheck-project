@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service
 @Service
 class MemoService (
     private val memoRepository: MemoRepository,
-//    private val memberRepository: MemberRepository,
-//    private val lectureRepository: LectureRepository
 ) {
 
     /**
@@ -22,25 +20,6 @@ class MemoService (
         val result = memoRepository.findAllByFetchJoin()
         return result.map { it.toResponse() }
     }
-
-    /**
-     * 특정 사용자 ID의 모든 메모를 가져옴. -> 메모 목록 검색 기능
-     */
-    fun getMemosByMemberWithSearch(memberId: Long, query: String): List<MemoResponseDto> {
-        val memos = memoRepository.findByMemberId(memberId).filter {
-            it.content.contains(query, ignoreCase = true) // 메모 내용에서 검색어 포함 여부를 확인
-        }
-        return memos.map { it.toResponse() }
-    }
-
-    /**
-     * 특정 사용자 ID의 특정 강의의 메모를 가져옴
-     */
-    fun getMemosByMemberAndLecture(memberId: Long, lectureId: Long): List<MemoResponseDto> {
-        val memos = memoRepository.findByMemberAndLecture(memberId, lectureId)
-        return memos.map { it.toResponse() }
-    }
-
 
     /**
      * 새로운 메모 생성
@@ -56,14 +35,13 @@ class MemoService (
     fun putMemos(memoRequestDto: MemoRequestDto, id: Long): MemoResponseDto {
         val memo: Memo = memoRepository.findByIdOrNull(id)
             ?: throw MemoException(msg = "존재하지 않는 메모 ID입니다.")
-        memo.content = memoRequestDto.content ?: memo.content
+        memo.content = memoRequestDto.content
         memoRepository.save(memo)
         return memo.toResponse()
     }
 
     /**
-     * 메모 삭제함.
-     * 특정 사용자의 특정 메모를 삭제하는 걸로 수정이 필요함.
+     * 메모 삭제
      */
     fun deleteMemo(id: Long) {
         memoRepository.deleteById(id)

@@ -56,25 +56,4 @@ class MemoController (
         return ResponseEntity.ok().body(BaseResponse(data = null))
     }
 
-
-    /**
-     * 특정 사용자의 모든 강의 메모 조회 및 검색 API
-     */
-    @GetMapping("/search")
-    fun getMemosByMemberWithSearch(@RequestParam memberId: Long, @RequestParam query: String):
-            ResponseEntity<BaseResponse<List<MemoResponseDto>>> {
-        val result = memoService.getMemosByMemberWithSearch(memberId, query)
-        return ResponseEntity.ok(BaseResponse(data = result))
-    }
-
-
-    /**
-     * 특정 사용자의 특정 강의에 해당하는 메모 가져오는 Api
-     */
-    @GetMapping("/member/{memberId}/lecture/{lectureId}")
-    private fun getMemosByMemberAndLecture(@PathVariable memberId: Long, @PathVariable lectureId: Long):
-            ResponseEntity<BaseResponse<List<MemoResponseDto>>> {
-        val result = memoService.getMemosByMemberAndLecture(memberId, lectureId)
-        return ResponseEntity.ok(BaseResponse(data = result))
-    }
 }

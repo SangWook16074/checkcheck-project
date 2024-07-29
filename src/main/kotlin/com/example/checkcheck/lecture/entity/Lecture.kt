@@ -3,7 +3,6 @@ package com.example.checkcheck.lecture.entity
 import com.example.checkcheck.lecture.dto.LectureResponseDto
 
 import com.example.checkcheck.member.entity.Member
-import com.example.checkcheck.memo.entity.Memo
 import jakarta.persistence.*
 
 @Entity
