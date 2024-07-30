@@ -48,7 +48,7 @@ class LectureServiceTest {
             _lectureEndDate = "23-07-30",
             _lectureStartAt = "09:00",
             _lectureEndAt = "10:00",
-            _lectureWeekDay = "MON",
+            _lectureWeekDay = WeekDay.MON,
             _lecturePlace = "Test Room",
             _lectureInfo = "Test Lecture Information",
             _registerStartDate = "23-02-01",

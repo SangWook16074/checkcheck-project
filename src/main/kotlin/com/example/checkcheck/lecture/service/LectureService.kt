@@ -14,7 +14,6 @@ import com.example.checkcheck.member.repository.MemberRepository
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import java.time.LocalDate
 import java.time.LocalTime
 
 @Transactional
@@ -25,34 +24,28 @@ class LectureService (
     private val registerPeriodRepository: RegisterPeriodRepository,
     private val lectureScheduleRepository: LectureScheduleRepository,
 ) {
-    /**
-     * 전체 강의 목록 조회
-     */
+    // 전체 강의 목록 조회
     fun getLectures(): List<LectureResponseDto> {
-        val result = lectureRepository.findAllByFetchJoin()
-        return result.map { it.toResponse() }
+        val lectures = lectureRepository.findAllByFetchJoin()
+        return lectures.map { it.toResponse() }
     }
 
-    /**
-     * 강의 개설
-     */
+    // 강의 개설
     fun postLectures(lectureRequestDto: LectureRequestDto, memberId: Long): String {
-        var lecture = lectureRepository.findByTitle(lectureRequestDto.title)
-        // 강의명 중복 검사
-        if (lecture != null) {
+        val existingLecture = lectureRepository.findByTitle(lectureRequestDto.title)
+        if (existingLecture != null) {
             throw RuntimeException("이미 존재하는 강의이름입니다!")
         }
-        // 사용자 유효성 검사
+
         val member = memberRepository.findByIdOrNull(memberId)
             ?: throw RuntimeException("존재하지 않는 사용자입니다!")
 
-        lecture = Lecture(
+        val lecture = Lecture(
             id = null,
             title = lectureRequestDto.title,
             member = member
         )
 
-        // 강의 등록
         lectureRepository.save(lecture)
 
         val registerPeriod = RegisterPeriod(
@@ -64,7 +57,6 @@ class LectureService (
             lecture = lecture
         )
 
-        // 수강신청 기간 등록
         registerPeriodRepository.save(registerPeriod)
 
         val lectureSchedule = LectureSchedule(
@@ -79,42 +71,33 @@ class LectureService (
             lecture = lecture
         )
 
-        // 강의 시간표 등록
         lectureScheduleRepository.save(lectureSchedule)
         return "강의가 등록되었습니다!"
     }
 
-    /**
-     * 사용자 id로 개별 강의 조회
-     * isEmpty 사용 (result의 강의목록이 비어있는지 없는지 확인)
-     */
+    // 사용자 ID로 개별 강의 조회
     fun getLecturesByUserId(memberId: Long): List<LectureResponseDto> {
         val member = memberRepository.findByIdOrNull(memberId)
             ?: throw RuntimeException("사용자가 존재하지 않습니다.")
 
-        val result = lectureRepository.findByMember(member)
-        if (result.isEmpty()) {
+        val lectures = lectureRepository.findByMember(member)
+        if (lectures.isEmpty()) {
             throw LectureException("사용자가 등록한 강의가 존재하지 않습니다.")
         }
-        return result.map { it.toResponse() }
+        return lectures.map { it.toResponse() }
     }
 
-    /**
-     * 강의시간표 요일 변경 Api
-     */
+    // 강의 시간표 요일 변경
     fun putLectureWeekDay(lectureScheduleRequestDto: LectureScheduleRequestDto, id: Long): LectureScheduleRequestDto {
         val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
-            ?: throw LectureException("존재하지 않는 강의 시간표 입니다.")
+            ?: throw LectureException("존재하지 않는 강의 시간표입니다.")
 
         lectureSchedule.weekDay = lectureScheduleRequestDto.weekDay
-
-        val result = lectureScheduleRepository.save(lectureSchedule)
-        return result.toResponse()
+        val updatedSchedule = lectureScheduleRepository.save(lectureSchedule)
+        return updatedSchedule.toResponse()
     }
 
-    /**
-     * 강의 시작시간 변경 Api
-     */
+    // 강의 시작시간 변경
     fun putLectureStartAt(lectureScheduleRequestDto: LectureScheduleRequestDto, id: Long): LectureScheduleRequestDto {
         val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
             ?: throw LectureException("존재하지 않는 강의 시간표 입니다.")
@@ -124,14 +107,11 @@ class LectureService (
         }
 
         lectureSchedule.lectureStartAt = lectureScheduleRequestDto.lectureStartAt
-
-        val result = lectureScheduleRepository.save(lectureSchedule)
-        return result.toResponse()
+        val updatedSchedule = lectureScheduleRepository.save(lectureSchedule)
+        return updatedSchedule.toResponse()
     }
 
-    /**
-     * 강의 종료시간 변경 Api
-     */
+    // 강의 종료시간 변경
     fun putLectureEndAt(lectureScheduleRequestDto: LectureScheduleRequestDto, id: Long): LectureScheduleRequestDto {
         val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
             ?: throw LectureException("존재하지 않는 강의 시간표 입니다.")
@@ -141,14 +121,11 @@ class LectureService (
         }
 
         lectureSchedule.lectureEndAt = lectureScheduleRequestDto.lectureEndAt
-
-        val result = lectureScheduleRepository.save(lectureSchedule)
-        return result.toResponse()
+        val updatedSchedule = lectureScheduleRepository.save(lectureSchedule)
+        return updatedSchedule.toResponse()
     }
 
-    /**
-     * 강의 삭제
-     */
+    // 강의 삭제
     fun deleteLectures(id: Long) {
         lectureRepository.deleteById(id)
     }
