@@ -1,6 +1,9 @@
 package com.example.checkcheck.lecture.entity
 
 import com.example.checkcheck.lecture.dto.LectureResponseDto
+import com.example.checkcheck.lecture.dto.RegisterPeriodDto
+import com.example.checkcheck.lecture.dto.LectureScheduleDto
+import com.example.checkcheck.lecture.dto.MemberDto
 import jakarta.persistence.*
 import com.example.checkcheck.member.entity.Member
 
@@ -11,7 +14,7 @@ import com.example.checkcheck.member.entity.Member
 class Lecture(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id : Long?,
+    val id: Long? = null,
 
     @Column(nullable = false, updatable = false, length = 50)
     var title: String,
@@ -22,16 +25,38 @@ class Lecture(
 ) {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "lecture", cascade = [CascadeType.ALL])
-    val registerPeriod : RegisterPeriod? = null
+    var registerPeriod: RegisterPeriod? = null
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lecture", cascade = [CascadeType.ALL])
-    val lectureSchedule : List<LectureSchedule>? = null
+    var lectureSchedule: List<LectureSchedule>? = null
 
-
-    fun toResponse() : LectureResponseDto = LectureResponseDto(
+    fun toResponse(): LectureResponseDto = LectureResponseDto(
         title = title,
-        registerPeriod = registerPeriod,
-        lectureSchedule = lectureSchedule,
-        member = member
+        registerPeriod = registerPeriod?.toDto(),
+        lectureSchedule = lectureSchedule?.map { it.toDto() },
+        member = member.toDto()
     )
 }
+
+fun RegisterPeriod.toDto() = RegisterPeriodDto(
+    registerStartDate = this.registerStartDate,
+    registerEndDate = this.registerEndDate,
+    registerStartAt = this.registerStartAt,
+    registerEndAt = this.registerEndAt
+)
+
+fun LectureSchedule.toDto() = LectureScheduleDto(
+    id = this.id!!,
+    weekday = this.weekDay.name,
+    lectureStartAt = this.lectureStartAt,
+    lectureEndAt = this.lectureEndAt,
+    lectureStartDate = this.lectureStartDate,
+    lectureEndDate = this.lectureEndDate,
+    lecturePlace = this.lecturePlace,
+    lectureInfo = this.lectureInfo
+)
+
+fun Member.toDto() = MemberDto(
+    id = this.id!!,
+    name = this.name
+)

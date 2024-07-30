@@ -4,6 +4,7 @@ import com.example.checkcheck.common.annotation.ValidEnum
 import com.example.checkcheck.common.enums.WeekDay
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 import java.time.LocalDate
@@ -29,7 +30,7 @@ data class LectureScheduleRequestDto(
     @JsonProperty("lectureEndDate")
     val lectureEndDate: String,
 
-    @field:NotBlank(message = "강의요일을 입력해 주세요.")
+    @field:NotNull(message = "강의 요일을 입력해 주세요.")
     @field:ValidEnum(
         enumClass = WeekDay::class,
         message = "MON, TUE, WED, THU, FRI, SAT, SUN 중 하나를 입력해주세요."

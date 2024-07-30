@@ -1,12 +1,9 @@
 package com.example.checkcheck.lecture.dto
 
-import com.example.checkcheck.common.annotation.ValidEnum
 import com.example.checkcheck.common.enums.WeekDay
-import com.example.checkcheck.lecture.entity.LectureSchedule
-import com.example.checkcheck.lecture.entity.RegisterPeriod
-import com.example.checkcheck.member.entity.Member
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 
@@ -17,7 +14,7 @@ data class LectureRequestDto(
 
     @field:NotBlank(message = "강의 시작일을 입력해주세요.")
     @field:Pattern(
-        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2})\$",
+        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2})$",
         message = "기간 형식을 확인해주세요! yy-MM-dd"
     )
     @JsonProperty("lectureStartDate")
@@ -25,7 +22,7 @@ data class LectureRequestDto(
 
     @field:NotBlank(message = "강의 종료일을 입력해주세요.")
     @field:Pattern(
-        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2})\$",
+        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2})$",
         message = "기간 형식을 확인해주세요! yy-MM-dd"
     )
     @JsonProperty("lectureEndDate")
@@ -33,7 +30,7 @@ data class LectureRequestDto(
 
     @field:NotBlank(message = "강의 시작시간을 입력해주세요.")
     @field:Pattern(
-        regexp = "^([01]\\d|2[0-3]):([0-5]\\d)\$",
+        regexp = "^([01]\\d|2[0-3]):([0-5]\\d)$",
         message = "시간 형식을 확인해주세요! HH:mm"
     )
     @JsonProperty("lectureStartAt")
@@ -41,19 +38,15 @@ data class LectureRequestDto(
 
     @field:NotBlank(message = "강의 종료시간을 입력해 주세요.")
     @field:Pattern(
-        regexp = "^([01]\\d|2[0-3]):([0-5]\\d)\$",
+        regexp = "^([01]\\d|2[0-3]):([0-5]\\d)$",
         message = "시간 형식을 확인해주세요! HH:mm"
     )
     @JsonProperty("lectureEndAt")
     private var _lectureEndAt: String?,
 
-    @field:NotBlank(message = "강의요일을 입력해 주세요.")
-    @field:ValidEnum(
-        enumClass = WeekDay::class,
-        message = "MON, TUE, WED, THU, FRI, SAT, SUN 중 하나를 입력해주세요."
-    )
+    @field:NotNull(message = "강의 요일을 입력해 주세요.")
     @JsonProperty("lectureWeekDay")
-    private var _lectureWeekDay: String?,
+    private var _lectureWeekDay: WeekDay? = null,
 
     @field:NotBlank(message = "강의장소를 입력해 주세요.")
     @JsonProperty("lecturePlace")
@@ -61,7 +54,7 @@ data class LectureRequestDto(
 
     @field:NotBlank(message = "수강신청 시작일을 입력해주세요.")
     @field:Pattern(
-        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2})\$",
+        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2})$",
         message = "기간 형식을 확인해주세요! yy-MM-dd"
     )
     @JsonProperty("registerStartDate")
@@ -69,7 +62,7 @@ data class LectureRequestDto(
 
     @field:NotBlank(message = "수강신청 종료일을 입력해주세요.")
     @field:Pattern(
-        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2})\$",
+        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2})$",
         message = "기간 형식을 확인해주세요! yy-MM-dd"
     )
     @JsonProperty("registerEndDate")
@@ -77,7 +70,7 @@ data class LectureRequestDto(
 
     @field:NotBlank(message = "수강신청 시작시간을 입력해주세요.")
     @field:Pattern(
-        regexp = "^([01]\\d|2[0-3]):([0-5]\\d)\$",
+        regexp = "^([01]\\d|2[0-3]):([0-5]\\d)$",
         message = "시간 형식을 확인해주세요! HH:mm"
     )
     @JsonProperty("registerStartAt")
@@ -85,7 +78,7 @@ data class LectureRequestDto(
 
     @field:NotBlank(message = "수강신청 종료시간을 입력해주세요.")
     @field:Pattern(
-        regexp = "^([01]\\d|2[0-3]):([0-5]\\d)\$",
+        regexp = "^([01]\\d|2[0-3]):([0-5]\\d)$",
         message = "시간 형식을 확인해주세요! HH:mm"
     )
     @JsonProperty("registerEndAt")
@@ -111,7 +104,7 @@ data class LectureRequestDto(
         get() = _lectureEndAt!!
 
     val lectureWeekDay: WeekDay
-        get() = WeekDay.valueOf(_lectureWeekDay!!)
+        get() = _lectureWeekDay!!
 
     val lecturePlace: String
         get() = _lecturePlace!!
@@ -134,7 +127,30 @@ data class LectureRequestDto(
 
 data class LectureResponseDto(
     var title: String,
-    var registerPeriod: RegisterPeriod?,
-    var lectureSchedule: List<LectureSchedule>?,
-    var member: Member?,
+    var registerPeriod: RegisterPeriodDto?,
+    var lectureSchedule: List<LectureScheduleDto>?,
+    var member: MemberDto?
+)
+
+data class RegisterPeriodDto(
+    var registerStartDate: String,
+    var registerEndDate: String,
+    var registerStartAt: String,
+    var registerEndAt: String
+)
+
+data class LectureScheduleDto(
+    var id: Long,
+    var weekday: String,
+    var lectureStartAt: String,
+    var lectureEndAt: String,
+    var lectureStartDate: String,
+    var lectureEndDate: String,
+    var lecturePlace: String,
+    var lectureInfo: String?
+)
+
+data class MemberDto(
+    var id: Long,
+    var name: String
 )
