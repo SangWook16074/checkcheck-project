@@ -52,7 +52,7 @@ data class LectureRequestDto(
     @JsonProperty("lecturePlace")
     private var _lecturePlace: String?,
 
-    @field:NotBlank(message = "수강신청 시작 일시를 입력해주세요.")
+    @field:NotBlank(message = "수강신청 시작 일정를 입력해주세요.")
     @field:Pattern(
         regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2}) ([01]\\d|2[0-3]):([0-5]\\d)\$",
         message = "형식을 확인해주세요! yy-MM-dd HH:mm"
@@ -60,7 +60,7 @@ data class LectureRequestDto(
     @JsonProperty("registerStartDateTime")
     private var _registerStartDateTime: String,
 
-    @field:NotBlank(message = "수강신청 종료 일시를 입력해주세요.")
+    @field:NotBlank(message = "수강신청 종료 일정를 입력해주세요.")
     @field:Pattern(
         regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2}) ([01]\\d|2[0-3]):([0-5]\\d)\$",
         message = "형식을 확인해주세요! yy-MM-dd HH:mm"

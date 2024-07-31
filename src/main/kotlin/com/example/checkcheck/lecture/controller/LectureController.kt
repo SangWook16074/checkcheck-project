@@ -152,7 +152,7 @@ class LectureController(
     /**
      * 수강신청 시작 변경 Api
      */
-    @Operation(summary = "수강신청 시작 변경", description = "수강신청 시작 변경 Api 입니다")
+    @Operation(summary = "수강신청 시작 일정 변경", description = "수강신청 시작 변경 Api 입니다")
     @PutMapping("/periodStartDateTime/{id}")
     private fun putRegisterStartDateTime(@Valid @RequestBody registerPeriodRequestDto: RegisterPeriodRequestDto, @PathVariable id: Long):
             ResponseEntity<BaseResponse<RegisterPeriodRequestDto>> {
@@ -163,7 +163,7 @@ class LectureController(
     /**
      * 수강신청 종료 변경 Api
      */
-    @Operation(summary = "수강신청 종료 변경", description = "수강신청 시작 변경 Api 입니다")
+    @Operation(summary = "수강신청 종료 일정 변경", description = "수강신청 시작 변경 Api 입니다")
     @PutMapping("/periodEndDateTime/{id}")
     private fun putRegisterEndDateTime(@Valid @RequestBody registerPeriodRequestDto: RegisterPeriodRequestDto, @PathVariable id: Long):
             ResponseEntity<BaseResponse<RegisterPeriodRequestDto>> {

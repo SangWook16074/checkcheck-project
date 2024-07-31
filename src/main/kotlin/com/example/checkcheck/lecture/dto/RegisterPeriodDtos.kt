@@ -9,17 +9,17 @@ import java.time.format.DateTimeFormatter
 data class RegisterPeriodRequestDto(
     val id: Long? = null,
 
-    @field:NotBlank(message = "수강신청 시작 일시를 입력해주세요.")
+    @field:NotBlank(message = "수강신청 시작 일정를 입력해주세요.")
     @field:Pattern(
-        regexp = "^([0-9]{2})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01]\\d|2[0-3]):([0-5]\\d)\$",
+        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2}) ([01]\\d|2[0-3]):([0-5]\\d)\$",
         message = "형식을 확인해주세요! yy-MM-dd HH:mm"
     )
     @JsonProperty("registerStartDateTime")
     val registerStartDateTime: String,
 
-    @field:NotBlank(message = "수강신청 종료 일시를 입력해주세요.")
+    @field:NotBlank(message = "수강신청 종료 일정를 입력해주세요.")
     @field:Pattern(
-        regexp = "^([0-9]{2})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01]\\d|2[0-3]):([0-5]\\d)\$",
+        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2}) ([01]\\d|2[0-3]):([0-5]\\d)\$",
         message = "형식을 확인해주세요! yy-MM-dd HH:mm"
     )
     @JsonProperty("registerEndDateTime")
