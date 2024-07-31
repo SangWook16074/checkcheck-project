@@ -52,37 +52,21 @@ data class LectureRequestDto(
     @JsonProperty("lecturePlace")
     private var _lecturePlace: String?,
 
-    @field:NotBlank(message = "수강신청 시작일을 입력해주세요.")
+    @field:NotBlank(message = "수강신청 시작 일시를 입력해주세요.")
     @field:Pattern(
-        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2})$",
-        message = "기간 형식을 확인해주세요! yy-MM-dd"
+        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2})$",
+        message = "형식을 확인해주세요! yy-MM-dd HH:mm"
     )
-    @JsonProperty("registerStartDate")
-    private var _registerStartDate: String?,
+    @JsonProperty("registerStartDateTime")
+    private var _registerStartDateTime: String,
 
-    @field:NotBlank(message = "수강신청 종료일을 입력해주세요.")
+    @field:NotBlank(message = "수강신청 종료 일시를 입력해주세요.")
     @field:Pattern(
-        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2})$",
-        message = "기간 형식을 확인해주세요! yy-MM-dd"
+        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2})$",
+        message = "형식을 확인해주세요! yy-MM-dd HH:mm"
     )
-    @JsonProperty("registerEndDate")
-    private var _registerEndDate: String?,
-
-    @field:NotBlank(message = "수강신청 시작시간을 입력해주세요.")
-    @field:Pattern(
-        regexp = "^([01]\\d|2[0-3]):([0-5]\\d)$",
-        message = "시간 형식을 확인해주세요! HH:mm"
-    )
-    @JsonProperty("registerStartAt")
-    private var _registerStartAt: String?,
-
-    @field:NotBlank(message = "수강신청 종료시간을 입력해주세요.")
-    @field:Pattern(
-        regexp = "^([01]\\d|2[0-3]):([0-5]\\d)$",
-        message = "시간 형식을 확인해주세요! HH:mm"
-    )
-    @JsonProperty("registerEndAt")
-    private var _registerEndAt: String?,
+    @JsonProperty("registerEndDateTime")
+    private var _registerEndDateTime: String,
 
     @field:Size(max = 300, message = "강의 정보는 최대 300글자 이내로 작성해 주세요.")
     @JsonProperty("lectureInfo")
@@ -109,17 +93,11 @@ data class LectureRequestDto(
     val lecturePlace: String
         get() = _lecturePlace!!
 
-    val registerStartDate: String
-        get() = _registerStartDate!!
+    val registerStartDateTime: String
+        get() = _registerStartDateTime
 
-    val registerEndDate: String
-        get() = _registerEndDate!!
-
-    val registerStartAt: String
-        get() = _registerStartAt!!
-
-    val registerEndAt: String
-        get() = _registerEndAt!!
+    val registerEndDateTime: String
+        get() = _registerEndDateTime
 
     val lectureInfo: String?
         get() = _lectureInfo
@@ -133,10 +111,8 @@ data class LectureResponseDto(
 )
 
 data class RegisterPeriodDto(
-    var registerStartDate: String,
-    var registerEndDate: String,
-    var registerStartAt: String,
-    var registerEndAt: String
+    var registerStartDateTime: String,
+    var registerEndDateTime: String,
 )
 
 data class LectureScheduleDto(

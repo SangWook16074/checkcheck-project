@@ -11,16 +11,10 @@ class RegisterPeriod(
     val id: Long? = null,
 
     @Column
-    val registerStartDate: String,
+    val registerStartDateTime: String,
 
     @Column
-    val registerEndDate: String,
-
-    @Column
-    val registerStartAt: String,
-
-    @Column
-    val registerEndAt: String,
+    val registerEndDateTime: String,
 
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(foreignKey = ForeignKey(name = "fk_register_period_lecture_id"))

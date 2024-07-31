@@ -147,4 +147,9 @@ class LectureController(
         val result = lectureService.putLectureInfo(lectureScheduleRequestDto, id)
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
     }
+
+//    /**
+//     * 수강신청 시작시간 변경 Api
+//     */
+//    @Operation(summary = "수강신청 시작시간 변경", description = "수강신청 시작시간 변경 Api 입니다")
 }
