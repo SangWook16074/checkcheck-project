@@ -11,7 +11,7 @@ data class RegisterPeriodRequestDto(
 
     @field:NotBlank(message = "수강신청 시작 일시를 입력해주세요.")
     @field:Pattern(
-        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2})$",
+        regexp = "^([0-9]{2})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01]\\d|2[0-3]):([0-5]\\d)\$",
         message = "형식을 확인해주세요! yy-MM-dd HH:mm"
     )
     @JsonProperty("registerStartDateTime")
@@ -19,7 +19,7 @@ data class RegisterPeriodRequestDto(
 
     @field:NotBlank(message = "수강신청 종료 일시를 입력해주세요.")
     @field:Pattern(
-        regexp = "^([0-9]{2})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2})$",
+        regexp = "^([0-9]{2})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01]\\d|2[0-3]):([0-5]\\d)\$",
         message = "형식을 확인해주세요! yy-MM-dd HH:mm"
     )
     @JsonProperty("registerEndDateTime")

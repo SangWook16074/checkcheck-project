@@ -5,6 +5,7 @@ import com.example.checkcheck.common.dtos.CustomUser
 import com.example.checkcheck.lecture.dto.LectureRequestDto
 import com.example.checkcheck.lecture.dto.LectureResponseDto
 import com.example.checkcheck.lecture.dto.LectureScheduleRequestDto
+import com.example.checkcheck.lecture.dto.RegisterPeriodRequestDto
 import com.example.checkcheck.lecture.service.LectureService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -148,8 +149,25 @@ class LectureController(
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
     }
 
-//    /**
-//     * 수강신청 시작시간 변경 Api
-//     */
-//    @Operation(summary = "수강신청 시작시간 변경", description = "수강신청 시작시간 변경 Api 입니다")
+    /**
+     * 수강신청 시작 변경 Api
+     */
+    @Operation(summary = "수강신청 시작 변경", description = "수강신청 시작 변경 Api 입니다")
+    @PutMapping("/periodStartDateTime/{id}")
+    private fun putRegisterStartDateTime(@Valid @RequestBody registerPeriodRequestDto: RegisterPeriodRequestDto, @PathVariable id: Long):
+            ResponseEntity<BaseResponse<RegisterPeriodRequestDto>> {
+        val result = lectureService.putRegisterStartDateTime(registerPeriodRequestDto, id)
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
+    }
+
+    /**
+     * 수강신청 종료 변경 Api
+     */
+    @Operation(summary = "수강신청 종료 변경", description = "수강신청 시작 변경 Api 입니다")
+    @PutMapping("/periodEndDateTime/{id}")
+    private fun putRegisterEndDateTime(@Valid @RequestBody registerPeriodRequestDto: RegisterPeriodRequestDto, @PathVariable id: Long):
+            ResponseEntity<BaseResponse<RegisterPeriodRequestDto>> {
+        val result = lectureService.putRegisterEndDateTime(registerPeriodRequestDto, id)
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
+    }
 }

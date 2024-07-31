@@ -4,6 +4,7 @@ import com.example.checkcheck.common.exceptions.lecture.LectureException
 import com.example.checkcheck.lecture.dto.LectureRequestDto
 import com.example.checkcheck.lecture.dto.LectureResponseDto
 import com.example.checkcheck.lecture.dto.LectureScheduleRequestDto
+import com.example.checkcheck.lecture.dto.RegisterPeriodRequestDto
 import com.example.checkcheck.lecture.entity.Lecture
 import com.example.checkcheck.lecture.entity.LectureSchedule
 import com.example.checkcheck.lecture.entity.RegisterPeriod
@@ -181,5 +182,33 @@ class LectureService (
     // 강의 삭제
     fun deleteLectures(id: Long) {
         lectureRepository.deleteById(id)
+    }
+
+    // 수강신청 시작 변경
+    fun putRegisterStartDateTime(registerPeriodRequestDto: RegisterPeriodRequestDto, id: Long): RegisterPeriodRequestDto {
+        val registerPeriod = registerPeriodRepository.findByIdOrNull(id)
+            ?: throw LectureException("존재하지 않는 수강신청 기간입니다.")
+
+        if (registerPeriodRequestDto.registerStartLocalDateTime.isAfter(registerPeriodRequestDto.registerEndLocalDateTime)) {
+            throw LectureException("수강신청 시작일은 종료일보다 늦을 수 없습니다.")
+        }
+
+        registerPeriod.registerStartDateTime = registerPeriodRequestDto.registerStartDateTime
+        val updatedPeriod = registerPeriodRepository.save(registerPeriod)
+        return updatedPeriod.toResponse()
+    }
+
+    // 수강신청 종료 변경
+    fun putRegisterEndDateTime(registerPeriodRequestDto: RegisterPeriodRequestDto, id: Long): RegisterPeriodRequestDto {
+        val registerPeriod = registerPeriodRepository.findByIdOrNull(id)
+            ?: throw LectureException("존재하지 않는 수강신청 기간입니다.")
+
+        if (registerPeriodRequestDto.registerEndLocalDateTime.isBefore(registerPeriodRequestDto.registerStartLocalDateTime)) {
+            throw LectureException("수강신청 종료일은 시작일보다 빠를 수 없습니다.")
+        }
+
+        registerPeriod.registerEndDateTime = registerPeriodRequestDto.registerEndDateTime
+        val updatedPeriod = registerPeriodRepository.save(registerPeriod)
+        return updatedPeriod.toResponse()
     }
 }

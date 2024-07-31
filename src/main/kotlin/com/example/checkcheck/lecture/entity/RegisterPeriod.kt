@@ -1,5 +1,6 @@
 package com.example.checkcheck.lecture.entity
 
+import com.example.checkcheck.lecture.dto.RegisterPeriodRequestDto
 import jakarta.persistence.*
 import java.time.LocalDate
 import java.time.LocalTime
@@ -11,12 +12,18 @@ class RegisterPeriod(
     val id: Long? = null,
 
     @Column
-    val registerStartDateTime: String,
+    var registerStartDateTime: String,
 
     @Column
-    val registerEndDateTime: String,
+    var registerEndDateTime: String,
 
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(foreignKey = ForeignKey(name = "fk_register_period_lecture_id"))
     val lecture: Lecture
-)
+) {
+    fun toResponse() = RegisterPeriodRequestDto(
+        id = this.id,
+        registerStartDateTime = this.registerStartDateTime,
+        registerEndDateTime = this.registerEndDateTime
+    )
+}

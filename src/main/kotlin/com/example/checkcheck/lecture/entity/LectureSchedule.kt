@@ -8,7 +8,7 @@ import jakarta.persistence.*
 class LectureSchedule (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long? = null,
+    val id: Long? = null,
 
     @Column
     var lectureStartDate: String,
