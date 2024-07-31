@@ -79,10 +79,8 @@ class LectureRepositoryTest @Autowired constructor(
 
         val registerPeriod = RegisterPeriod(
             id = null,
-            registerStartDate = "23-02-01",
-            registerEndDate = "24-02-25",
-            registerStartAt = "10:00",
-            registerEndAt = "11:00",
+            registerStartDateTime = "23-02-01 10:00",
+            registerEndDateTime = "24-02-25 10:00",
             lecture = l
         )
 

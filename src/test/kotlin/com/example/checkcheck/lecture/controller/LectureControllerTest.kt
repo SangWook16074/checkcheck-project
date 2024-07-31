@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.data.web.JsonPath
 import org.springframework.http.MediaType
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -37,7 +36,7 @@ class LectureControllerTest {
         val customUser = CustomUser(
             email = "test@test.com",
             password = "testtest1@",
-            authority = listOf( SimpleGrantedAuthority("ROLE_MEMBER") ),
+            authority = listOf(SimpleGrantedAuthority("ROLE_MEMBER")),
             id = 1L
         )
 
@@ -70,19 +69,15 @@ class LectureControllerTest {
                 "lectureEndAt": "10:00",
                 "lectureWeekDay": "MON",
                 "lecturePlace": "Test Room",
-                "registerStartDate": "21-07-01",
-                "registerEndDate": "21-07-30",
-                "registerStartAt": "09:00",
-                "registerEndAt": "10:00",
+                "registerStartDateTime": "21-02-01 10:00",
+                "registerEndDateTime": "21-02-25 10:00",
                 "lectureInfo": "Test Lecture Information"
             }
             """.trimIndent()
                 )
                 .contentType(MediaType.APPLICATION_JSON)
         )
-            .andExpect(
-                status().isCreated
-            )
+            .andExpect(status().isCreated)
 
         verify(exactly = 1) { lectureService.postLectures(any(), 1L) }
     }
@@ -93,7 +88,8 @@ class LectureControllerTest {
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/api/lecture/open")
-                .content("""
+                .content(
+                    """
             {
                 "title": "testLecture",
                 "lectureStartDate": "21-07-03",
@@ -102,13 +98,12 @@ class LectureControllerTest {
                 "lectureEndAt": "10:00",
                 "lectureWeekDay": "MON",
                 "lecturePlace": "Test Room",
-                "registerStartDate": "21-07-01",
-                "registerEndDate": "21-07-30",
-                "registerStartAt": "09:00",
-                "registerEndAt": "10:00",
+                "registerStartDateTime": "21-02-01 10:00",
+                "registerEndDateTime": "21-02-25 10:00",
                 "lectureInfo": "Test Lecture Information"
             }
-            """.trimIndent())
+            """.trimIndent()
+                )
                 .contentType(MediaType.APPLICATION_JSON)
         )
             .andExpect(status().isCreated)
@@ -127,12 +122,10 @@ class LectureControllerTest {
         "lectureEndDate": "21-07-30",
         "lectureStartAt": "0900",
         "lectureEndAt": "10:00",
-        "lectureWeekDay": "MN",
+        "lectureWeekDay": "MON",
         "lecturePlace": "Test Room",
-        "registerStartDate": "21-07-01",
-        "registerEndDate": "21-07-30",
-        "registerStartAt": "09:00",
-        "registerEndAt": "10:00",
+        "registerStartDateTime": "21-02-01 10:00",
+        "registerEndDateTime": "21-02-25 10:00",
         "lectureInfo": "Test Lecture Information"
     }
     """.trimIndent()
