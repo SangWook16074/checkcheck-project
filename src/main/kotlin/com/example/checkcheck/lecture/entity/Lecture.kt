@@ -39,10 +39,8 @@ class Lecture(
 }
 
 fun RegisterPeriod.toDto() = RegisterPeriodDto(
-    registerStartDate = this.registerStartDate,
-    registerEndDate = this.registerEndDate,
-    registerStartAt = this.registerStartAt,
-    registerEndAt = this.registerEndAt
+    registerStartDateTime = this.registerStartDateTime,
+    registerEndDateTime = this.registerEndDateTime,
 )
 
 fun LectureSchedule.toDto() = LectureScheduleDto(

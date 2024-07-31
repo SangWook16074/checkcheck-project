@@ -51,10 +51,8 @@ class LectureServiceTest {
             _lectureWeekDay = WeekDay.MON,
             _lecturePlace = "Test Room",
             _lectureInfo = "Test Lecture Information",
-            _registerStartDate = "23-02-01",
-            _registerEndDate = "24-02-25",
-            _registerStartAt = "10:00",
-            _registerEndAt = "11:00",
+            _registerStartDateTime = "23-02-01 10:00",
+            _registerEndDateTime = "24-02-25 10:00",
         )
 
         val testLecture = Lecture(
@@ -75,10 +73,8 @@ class LectureServiceTest {
         )
         val testRegisterPeriod = RegisterPeriod(
             id = null,
-            registerStartDate = "23-02-01",
-            registerEndDate = "24-02-25",
-            registerStartAt = "10:00",
-            registerEndAt = "11:00",
+            registerStartDateTime = "23-02-01 10:00",
+            registerEndDateTime = "24-02-25 10:00",
             lecture = testLecture
         )
         every { memberRepository.findByIdOrNull(1) } returns member

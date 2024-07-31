@@ -4,6 +4,7 @@ import com.example.checkcheck.common.exceptions.lecture.LectureException
 import com.example.checkcheck.lecture.dto.LectureRequestDto
 import com.example.checkcheck.lecture.dto.LectureResponseDto
 import com.example.checkcheck.lecture.dto.LectureScheduleRequestDto
+import com.example.checkcheck.lecture.dto.RegisterPeriodRequestDto
 import com.example.checkcheck.lecture.entity.Lecture
 import com.example.checkcheck.lecture.entity.LectureSchedule
 import com.example.checkcheck.lecture.entity.RegisterPeriod
@@ -33,10 +34,13 @@ class LectureService (
     // 강의 개설
     fun postLectures(lectureRequestDto: LectureRequestDto, memberId: Long): String {
         val existingLecture = lectureRepository.findByTitle(lectureRequestDto.title)
+
+        // 강의명 중복 검사
         if (existingLecture != null) {
             throw RuntimeException("이미 존재하는 강의이름입니다!")
         }
 
+        // 사용자 유효성 검사
         val member = memberRepository.findByIdOrNull(memberId)
             ?: throw RuntimeException("존재하지 않는 사용자입니다!")
 
@@ -46,17 +50,17 @@ class LectureService (
             member = member
         )
 
+        // 강의 등록
         lectureRepository.save(lecture)
 
         val registerPeriod = RegisterPeriod(
             id = null,
-            registerStartDate = lectureRequestDto.registerStartDate,
-            registerEndDate = lectureRequestDto.registerEndDate,
-            registerStartAt = lectureRequestDto.registerStartAt,
-            registerEndAt = lectureRequestDto.registerEndAt,
+            registerStartDateTime = lectureRequestDto.registerStartDateTime,
+            registerEndDateTime = lectureRequestDto.registerEndDateTime,
             lecture = lecture
         )
 
+        // 수강신청 기간 등록
         registerPeriodRepository.save(registerPeriod)
 
         val lectureSchedule = LectureSchedule(
@@ -71,6 +75,7 @@ class LectureService (
             lecture = lecture
         )
 
+        // 강의 시간표 등록
         lectureScheduleRepository.save(lectureSchedule)
         return "강의가 등록되었습니다!"
     }
@@ -87,7 +92,7 @@ class LectureService (
         return lectures.map { it.toResponse() }
     }
 
-    // 강의 시간표 요일 변경
+    // 강의 요일 변경
     fun putLectureWeekDay(lectureScheduleRequestDto: LectureScheduleRequestDto, id: Long): LectureScheduleRequestDto {
         val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
             ?: throw LectureException("존재하지 않는 강의 시간표입니다.")
@@ -111,6 +116,7 @@ class LectureService (
         return updatedSchedule.toResponse()
     }
 
+
     // 강의 종료시간 변경
     fun putLectureEndAt(lectureScheduleRequestDto: LectureScheduleRequestDto, id: Long): LectureScheduleRequestDto {
         val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
@@ -125,8 +131,84 @@ class LectureService (
         return updatedSchedule.toResponse()
     }
 
+    // 강의 시작기간 변경
+    fun putLectureStartDate(lectureScheduleRequestDto: LectureScheduleRequestDto, id: Long): LectureScheduleRequestDto {
+        val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
+            ?: throw LectureException("존재하지 않는 강의 시간표입니다.")
+
+        if (lectureScheduleRequestDto.lectureStartLocalDate.isAfter(lectureScheduleRequestDto.lectureEndLocalDate)) {
+            throw LectureException("강의 시작일은 종료일보다 늦을 수 없습니다.")
+        }
+
+        lectureSchedule.lectureStartDate = lectureScheduleRequestDto.lectureStartDate
+        val updatedSchedule = lectureScheduleRepository.save(lectureSchedule)
+        return updatedSchedule.toResponse()
+    }
+
+    // 강의 종료기간 변경
+    fun putLectureEndDate(lectureScheduleRequestDto: LectureScheduleRequestDto, id: Long): LectureScheduleRequestDto {
+        val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
+            ?: throw LectureException("존재하지 않는 강의 시간표입니다.")
+
+        if (lectureScheduleRequestDto.lectureEndLocalDate.isBefore(lectureScheduleRequestDto.lectureStartLocalDate)) {
+            throw LectureException("강의 종료일은 시작일보다 빠를 수 없습니다.")
+        }
+
+        lectureSchedule.lectureEndDate = lectureScheduleRequestDto.lectureEndDate
+        val updatedSchedule = lectureScheduleRepository.save(lectureSchedule)
+        return updatedSchedule.toResponse()
+    }
+
+    // 강의실 변경
+    fun putLecturePlace(lectureScheduleRequestDto: LectureScheduleRequestDto, id: Long): LectureScheduleRequestDto {
+        val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
+            ?: throw LectureException("존재하지 않는 강의 시간표입니다.")
+
+        lectureSchedule.lecturePlace = lectureScheduleRequestDto.lecturePlace
+        val updatedSchedule = lectureScheduleRepository.save(lectureSchedule)
+        return updatedSchedule.toResponse()
+    }
+
+    // 강의 정보 변경
+    fun putLectureInfo(lectureScheduleRequestDto: LectureScheduleRequestDto, id: Long): LectureScheduleRequestDto {
+        val lectureSchedule = lectureScheduleRepository.findByIdOrNull(id)
+            ?: throw LectureException("존재하지 않는 강의 시간표입니다.")
+
+        lectureSchedule.lectureInfo = lectureScheduleRequestDto.lectureInfo
+        val updatedSchedule = lectureScheduleRepository.save(lectureSchedule)
+        return updatedSchedule.toResponse()
+    }
+
     // 강의 삭제
     fun deleteLectures(id: Long) {
         lectureRepository.deleteById(id)
+    }
+
+    // 수강신청 시작 변경
+    fun putRegisterStartDateTime(registerPeriodRequestDto: RegisterPeriodRequestDto, id: Long): RegisterPeriodRequestDto {
+        val registerPeriod = registerPeriodRepository.findByIdOrNull(id)
+            ?: throw LectureException("존재하지 않는 수강신청 기간입니다.")
+
+        if (registerPeriodRequestDto.registerStartLocalDateTime.isAfter(registerPeriodRequestDto.registerEndLocalDateTime)) {
+            throw LectureException("수강신청 시작일은 종료일보다 늦을 수 없습니다.")
+        }
+
+        registerPeriod.registerStartDateTime = registerPeriodRequestDto.registerStartDateTime
+        val updatedPeriod = registerPeriodRepository.save(registerPeriod)
+        return updatedPeriod.toResponse()
+    }
+
+    // 수강신청 종료 변경
+    fun putRegisterEndDateTime(registerPeriodRequestDto: RegisterPeriodRequestDto, id: Long): RegisterPeriodRequestDto {
+        val registerPeriod = registerPeriodRepository.findByIdOrNull(id)
+            ?: throw LectureException("존재하지 않는 수강신청 기간입니다.")
+
+        if (registerPeriodRequestDto.registerEndLocalDateTime.isBefore(registerPeriodRequestDto.registerStartLocalDateTime)) {
+            throw LectureException("수강신청 종료일은 시작일보다 빠를 수 없습니다.")
+        }
+
+        registerPeriod.registerEndDateTime = registerPeriodRequestDto.registerEndDateTime
+        val updatedPeriod = registerPeriodRepository.save(registerPeriod)
+        return updatedPeriod.toResponse()
     }
 }
