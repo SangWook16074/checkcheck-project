@@ -42,16 +42,16 @@ data class RegisterPeriodRequestDto(
     @JsonProperty("registerEndAt")
     private var registerEndAt: String?
 ) {
-    val startDate: LocalDate
+    val registerStartLocalDate: LocalDate
         get() = registerStartDate!!.toLocalDate()
 
-    val endDate: LocalDate
+    val registerEndLocalDate: LocalDate
         get() = registerEndDate!!.toLocalDate()
 
-    val startAt: LocalTime
+    val registerStartLocalAt: LocalTime
         get() = registerStartAt!!.toLocalTime()
 
-    val endAt: LocalTime
+    val registerEndLocalEndAt: LocalTime
         get() = registerEndAt!!.toLocalTime()
 
     private fun String.toLocalDate(): LocalDate =

@@ -54,7 +54,7 @@ class LectureController(
      * 사용자 id를 통해 강의 조회 Api
      */
     @Operation(summary = "사용자별 강의 조회", description = "사용자별 강의 조회 Api 입니다")
-    @GetMapping("/userlecture/{memberId}")
+    @GetMapping("/userLecture/{memberId}")
     fun getLecturesByUserId(@PathVariable memberId: Long):
             ResponseEntity<BaseResponse<List<LectureResponseDto>>> {
         val result = lectureService.getLecturesByUserId(memberId)
@@ -86,7 +86,7 @@ class LectureController(
      * 강의 시작시간 변경 Api
      */
     @Operation(summary = "강의 시작시간 변경", description = "강의 시작시간 변경 Api 입니다")
-    @PutMapping("/startat/{id}")
+    @PutMapping("/lectureStartAt/{id}")
     private fun putLectureStartAt(@Valid @RequestBody lectureScheduleRequestDto: LectureScheduleRequestDto, @PathVariable id: Long):
             ResponseEntity<BaseResponse<LectureScheduleRequestDto>> {
         val result = lectureService.putLectureStartAt(lectureScheduleRequestDto, id)
@@ -97,10 +97,54 @@ class LectureController(
      * 강의 종료시간 변경 Api
      */
     @Operation(summary = "강의 종료시간 변경", description = "강의 종료시간 변경 Api 입니다")
-    @PutMapping("/endat/{id}")
+    @PutMapping("/lectureEndAt/{id}")
     private fun putLectureEndAt(@Valid @RequestBody lectureScheduleRequestDto: LectureScheduleRequestDto, @PathVariable id: Long):
             ResponseEntity<BaseResponse<LectureScheduleRequestDto>> {
         val result = lectureService.putLectureEndAt(lectureScheduleRequestDto, id)
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
+    }
+
+    /**
+     *  강의 시작기간 변경 Api
+     */
+    @Operation(summary = "강의 시작기간 변경", description = "강의 시작기간 변경 Api 입니다")
+    @PutMapping("/lectureStartDate/{id}")
+    private fun putLectureStartDate(@Valid @RequestBody lectureScheduleRequestDto: LectureScheduleRequestDto, @PathVariable id: Long):
+            ResponseEntity<BaseResponse<LectureScheduleRequestDto>> {
+        val result = lectureService.putLectureStartDate(lectureScheduleRequestDto, id)
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
+    }
+
+    /**
+     * 강의 종료기간 변경 Api
+     */
+    @Operation(summary = "강의 종료기간 변경", description = "강의 종료기간 변경 Api 입니다")
+    @PutMapping("/lectureEndDate/{id}")
+    private fun putLectureEndDate(@Valid @RequestBody lectureScheduleRequestDto: LectureScheduleRequestDto, @PathVariable id: Long):
+            ResponseEntity<BaseResponse<LectureScheduleRequestDto>> {
+        val result = lectureService.putLectureEndDate(lectureScheduleRequestDto, id)
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
+    }
+
+    /**
+     * 강의실 변경 Api
+     */
+    @Operation(summary = "강의실 변경", description = "강의실 변경 Api 입니다")
+    @PutMapping("lecturePlace/{id}")
+    private fun putLecturePlace(@Valid @RequestBody lectureScheduleRequestDto: LectureScheduleRequestDto, @PathVariable id: Long):
+            ResponseEntity<BaseResponse<LectureScheduleRequestDto>> {
+        val result = lectureService.putLecturePlace(lectureScheduleRequestDto, id)
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
+    }
+
+    /**
+     * 강의 정보 변경 Api
+     */
+    @Operation(summary = "강의 정보 변경", description = "강의 정보 변경 Api 입니다")
+    @PutMapping("/lectureInfo/{id}")
+    private fun putLectureInfo(@Valid @RequestBody lectureScheduleRequestDto: LectureScheduleRequestDto, @PathVariable id: Long):
+            ResponseEntity<BaseResponse<LectureScheduleRequestDto>> {
+        val result = lectureService.putLectureInfo(lectureScheduleRequestDto, id)
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
     }
 }

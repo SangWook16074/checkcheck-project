@@ -4,9 +4,12 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://mysql-container:3306/checkcheck_db?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul"
-    username: checkcheck_admin
-    password: checkcheck
+    url: "jdbc:mysql://localhost:3306/checkcheck?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul"
+    username: KJW
+    password: KJW
+#    url: "jdbc:mysql://mysql-container:3306/checkcheck_db?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul"
+#    username: checkcheck_admin
+#    password: checkcheck
 
   jpa:
     database: mysql
