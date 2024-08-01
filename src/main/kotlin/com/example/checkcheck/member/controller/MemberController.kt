@@ -45,7 +45,7 @@ class MemberController(
      */
     @Operation(summary = "이메일 중복 확인", description = "회원가입 시 이메일 중복을 확인하는 Api입니다.")
     @GetMapping("isExist/{email}")
-    fun checkEmail(@PathVariable email: String): ResponseEntity<BaseResponse<Boolean>> {
+    fun checkEmail(@PathVariable email: String): ResponseEntity<BaseResponse<String>> {
         val emailExists = memberService.checkEmailExists(email)
         return ResponseEntity.status(HttpStatus.OK)
             .body(BaseResponse(data = emailExists))

@@ -25,6 +25,7 @@ class MemberRoleRepositoryTest @Autowired constructor(
             id = null,
             email = "test@test.com",
             password = "testtest1@",
+            confirmpassword = "testtest1@",
             name = "test"
         )
 
@@ -42,5 +43,7 @@ class MemberRoleRepositoryTest @Autowired constructor(
         assertThat(memberRole.member.name).isEqualTo("test")
         assertThat(memberRole.member.email).isEqualTo("test@test.com")
         assertThat(memberRole.member.password).isEqualTo("testtest1@")
+        assertThat(memberRole.member.confirmpassword).isEqualTo("testtest1@")
+
     }
 }

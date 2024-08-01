@@ -22,6 +22,7 @@ class MemberRepositoryTest @Autowired constructor(
             id = null,
             email = "test@test.com",
             password = "testtest1@",
+            confirmpassword = "testtest1@",
             name = "test"
         )
 
@@ -30,6 +31,7 @@ class MemberRepositoryTest @Autowired constructor(
         assertThat(result.name).isEqualTo("test")
         assertThat(result.email).isEqualTo("test@test.com")
         assertThat(result.password).isEqualTo("testtest1@")
+        assertThat(result.confirmpassword).isEqualTo("testtest1@")
     }
 
     @Test
@@ -38,6 +40,7 @@ class MemberRepositoryTest @Autowired constructor(
             id = null,
             email = "test@test.com",
             password = "testtest1@",
+            confirmpassword = "testtest1@",
             name = "test"
         )
 
@@ -48,5 +51,7 @@ class MemberRepositoryTest @Autowired constructor(
         assertThat(result.email).isEqualTo("test@test.com")
         assertThat(result.name).isEqualTo("test")
         assertThat(result.password).isEqualTo("testtest1@")
+        assertThat(result.confirmpassword).isEqualTo("testtest1@")
+
     }
 }

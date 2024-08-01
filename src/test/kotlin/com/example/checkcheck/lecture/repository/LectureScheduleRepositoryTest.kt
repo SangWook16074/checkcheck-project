@@ -36,7 +36,6 @@ class LectureScheduleRepositoryTest @Autowired constructor(
         val lecture = Lecture(
             id = null,
             title = "testLecture",
-            maxStudent = 40,
             member = member
 
         )
@@ -44,18 +43,20 @@ class LectureScheduleRepositoryTest @Autowired constructor(
         lectureRepository.save(lecture)
 
         val lectureSchedule = LectureSchedule(
-            id = 1,
-            startAt = "09:00",
-            endAt = "10:00",
+            id = null,
+            lectureStartDate = "23-03-01",
+            lectureEndDate = "23-06-30",
+            lectureStartAt = "10:00",
+            lectureEndAt = "13:00",
             weekDay = WeekDay.MON,
+            lecturePlace = "Test Room",
+            lectureInfo = "Test Lecture Information",
             lecture = lecture
         )
-
         val result = lectureScheduleRepository.save(lectureSchedule)
 
         assertThat(result.weekDay).isEqualTo(WeekDay.MON)
         assertThat(result.lecture.title).isEqualTo("testLecture")
-        assertThat(result.lecture.maxStudent).isEqualTo(40)
         assertThat(result.lecture.member.name).isEqualTo("test")
         assertThat(result.lecture.member.email).isEqualTo("test@test.com")
         assertThat(result.lecture.member.password).isEqualTo("testtest1@")

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.data.web.JsonPath
 import org.springframework.http.MediaType
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -37,7 +36,7 @@ class LectureControllerTest {
         val customUser = CustomUser(
             email = "test@test.com",
             password = "testtest1@",
-            authority = listOf( SimpleGrantedAuthority("ROLE_MEMBER") ),
+            authority = listOf(SimpleGrantedAuthority("ROLE_MEMBER")),
             id = 1L
         )
 
@@ -60,13 +59,25 @@ class LectureControllerTest {
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/api/lecture/open")
-                .content("{\"title\" : \"testLecture\",\"lectureStartAt\" : \"09:00\",\"lectureEndAt\" : \"10:00\",\"lectureWeekDay\" : \"MON\",\"registerStartAt\" : \"2024-07-03 09:00\",\"registerEndAt\" : \"2024-07-30 10:00\",\"maxStudent\" : 40 }"
+                .content(
+                    """
+            {
+                "title": "testLecture",
+                "lectureStartDate": "21-07-03",
+                "lectureEndDate": "21-07-30",
+                "lectureStartAt": "09:00",
+                "lectureEndAt": "10:00",
+                "lectureWeekDay": "MON",
+                "lecturePlace": "Test Room",
+                "registerStartDateTime": "21-02-01 10:00",
+                "registerEndDateTime": "21-02-25 10:00",
+                "lectureInfo": "Test Lecture Information"
+            }
+            """.trimIndent()
                 )
                 .contentType(MediaType.APPLICATION_JSON)
         )
-            .andExpect(
-                status().isCreated
-            )
+            .andExpect(status().isCreated)
 
         verify(exactly = 1) { lectureService.postLectures(any(), 1L) }
     }
@@ -77,40 +88,57 @@ class LectureControllerTest {
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/api/lecture/open")
-                .content("{\"title\" : \"testLecture\",\"lectureStartAt\" : \"09:00\",\"lectureEndAt\" : \"10:00\",\"lectureWeekDay\" : \"MON\",\"registerStartAt\" : \"2024-07-03 09:00\",\"registerEndAt\" : \"2024-07-30 10:00\",\"maxStudent\" : 40 }"
+                .content(
+                    """
+            {
+                "title": "testLecture",
+                "lectureStartDate": "21-07-03",
+                "lectureEndDate": "21-07-30",
+                "lectureStartAt": "09:00",
+                "lectureEndAt": "10:00",
+                "lectureWeekDay": "MON",
+                "lecturePlace": "Test Room",
+                "registerStartDateTime": "21-02-01 10:00",
+                "registerEndDateTime": "21-02-25 10:00",
+                "lectureInfo": "Test Lecture Information"
+            }
+            """.trimIndent()
                 )
                 .contentType(MediaType.APPLICATION_JSON)
         )
-            .andExpect(
-                status().isCreated
-            )
-            .andExpect(
-                jsonPath("$.status").value("SUCCESS")
-            )
-            .andExpect(
-                jsonPath("$.data").value("강의가 등록되었습니다!")
-            )
+            .andExpect(status().isCreated)
+            .andExpect(jsonPath("$.status").value("SUCCESS"))
+            .andExpect(jsonPath("$.data").value("강의가 등록되었습니다!"))
 
         verify(exactly = 1) { lectureService.postLectures(any(), 1L) }
     }
 
     @Test
     fun `사용자 강의생성 Validation 응답 테스트`() {
-        every { lectureService.postLectures(any(), 1L) } returns "강의가 등록되었습니다!"
+        val invalidJsonContent = """
+    {
+        "title": "testLecture",
+        "lectureStartDate": "21-07-03",
+        "lectureEndDate": "21-07-30",
+        "lectureStartAt": "0900",
+        "lectureEndAt": "10:00",
+        "lectureWeekDay": "MON",
+        "lecturePlace": "Test Room",
+        "registerStartDateTime": "21-02-01 10:00",
+        "registerEndDateTime": "21-02-25 10:00",
+        "lectureInfo": "Test Lecture Information"
+    }
+    """.trimIndent()
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/api/lecture/open")
-                .content("{\"title\" : \"testLecture\",\"lectureStartAt\" : \"0900\",\"lectureEndAt\" : \"10:00\",\"lectureWeekDay\" : \"MN\",\"registerStartAt\" : \"2024-07-03 09:00\",\"registerEndAt\" : \"2024-07-30 10:00\",\"maxStudent\" : 40 }"
-                )
+                .content(invalidJsonContent)
                 .contentType(MediaType.APPLICATION_JSON)
         )
-            .andExpect(
-                status().isBadRequest
-            )
-            .andExpect(
-                jsonPath("$.status").value("ERROR")
-            )
+            .andExpect(status().isBadRequest)
+            .andExpect(jsonPath("$.status").value("ERROR"))
 
         verify(exactly = 0) { lectureService.postLectures(any(), 1L) }
     }
+
 }

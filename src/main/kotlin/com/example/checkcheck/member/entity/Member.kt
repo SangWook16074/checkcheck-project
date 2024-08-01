@@ -26,5 +26,4 @@ class Member(
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = [CascadeType.ALL])
     val role: List<MemberRole>? = null
 
-
 }

@@ -8,7 +8,6 @@ import com.example.checkcheck.member.entity.Member
 import com.example.checkcheck.member.entity.MemberRole
 import com.example.checkcheck.member.repository.MemberRepository
 import com.example.checkcheck.member.repository.MemberRoleRepository
-import com.example.checkcheck.member.service.MemberService
 import io.mockk.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -56,8 +55,13 @@ class MemberServiceTest {
 
         val result = memberService.signup(signUpDto)
 
+
         //verify(exactly = 1) { memberRepository.findByEmail(signUpDto.email) }
         verify(exactly = 1) { memberRepository.save(any()) }
+
+//        verify(exactly = 1) { memberRepository.save(any()) }
+        verify(exactly = 1) { memberRepository.findByEmail(signUpDto.email) }
+
         verify(exactly = 1) { memberRoleRepository.save(any()) }
 
         assertEquals("회원가입이 완료되었습니다!", result)

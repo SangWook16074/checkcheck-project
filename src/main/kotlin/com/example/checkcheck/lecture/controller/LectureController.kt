@@ -5,6 +5,7 @@ import com.example.checkcheck.common.dtos.CustomUser
 import com.example.checkcheck.lecture.dto.LectureRequestDto
 import com.example.checkcheck.lecture.dto.LectureResponseDto
 import com.example.checkcheck.lecture.dto.LectureScheduleRequestDto
+import com.example.checkcheck.lecture.dto.RegisterPeriodRequestDto
 import com.example.checkcheck.lecture.service.LectureService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "Lecture-Controller", description = "강의 목록 조회, 개설, 삭제 관련 컨트롤러입니다")
+@Tag(name = "Lecture-Controller", description = "강의 및 수강신청 조회, 개설, 수정, 삭제 관련 컨트롤러입니다")
 @RestController
 @RequestMapping("/api/lecture")
 
@@ -54,7 +55,7 @@ class LectureController(
      * 사용자 id를 통해 강의 조회 Api
      */
     @Operation(summary = "사용자별 강의 조회", description = "사용자별 강의 조회 Api 입니다")
-    @GetMapping("/userlecture/{memberId}")
+    @GetMapping("/userLecture/{memberId}")
     fun getLecturesByUserId(@PathVariable memberId: Long):
             ResponseEntity<BaseResponse<List<LectureResponseDto>>> {
         val result = lectureService.getLecturesByUserId(memberId)
@@ -86,7 +87,7 @@ class LectureController(
      * 강의 시작시간 변경 Api
      */
     @Operation(summary = "강의 시작시간 변경", description = "강의 시작시간 변경 Api 입니다")
-    @PutMapping("/startat/{id}")
+    @PutMapping("/lectureStartAt/{id}")
     private fun putLectureStartAt(@Valid @RequestBody lectureScheduleRequestDto: LectureScheduleRequestDto, @PathVariable id: Long):
             ResponseEntity<BaseResponse<LectureScheduleRequestDto>> {
         val result = lectureService.putLectureStartAt(lectureScheduleRequestDto, id)
@@ -97,10 +98,76 @@ class LectureController(
      * 강의 종료시간 변경 Api
      */
     @Operation(summary = "강의 종료시간 변경", description = "강의 종료시간 변경 Api 입니다")
-    @PutMapping("/endat/{id}")
+    @PutMapping("/lectureEndAt/{id}")
     private fun putLectureEndAt(@Valid @RequestBody lectureScheduleRequestDto: LectureScheduleRequestDto, @PathVariable id: Long):
             ResponseEntity<BaseResponse<LectureScheduleRequestDto>> {
         val result = lectureService.putLectureEndAt(lectureScheduleRequestDto, id)
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
+    }
+
+    /**
+     *  강의 시작기간 변경 Api
+     */
+    @Operation(summary = "강의 시작기간 변경", description = "강의 시작기간 변경 Api 입니다")
+    @PutMapping("/lectureStartDate/{id}")
+    private fun putLectureStartDate(@Valid @RequestBody lectureScheduleRequestDto: LectureScheduleRequestDto, @PathVariable id: Long):
+            ResponseEntity<BaseResponse<LectureScheduleRequestDto>> {
+        val result = lectureService.putLectureStartDate(lectureScheduleRequestDto, id)
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
+    }
+
+    /**
+     * 강의 종료기간 변경 Api
+     */
+    @Operation(summary = "강의 종료기간 변경", description = "강의 종료기간 변경 Api 입니다")
+    @PutMapping("/lectureEndDate/{id}")
+    private fun putLectureEndDate(@Valid @RequestBody lectureScheduleRequestDto: LectureScheduleRequestDto, @PathVariable id: Long):
+            ResponseEntity<BaseResponse<LectureScheduleRequestDto>> {
+        val result = lectureService.putLectureEndDate(lectureScheduleRequestDto, id)
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
+    }
+
+    /**
+     * 강의실 변경 Api
+     */
+    @Operation(summary = "강의실 변경", description = "강의실 변경 Api 입니다")
+    @PutMapping("lecturePlace/{id}")
+    private fun putLecturePlace(@Valid @RequestBody lectureScheduleRequestDto: LectureScheduleRequestDto, @PathVariable id: Long):
+            ResponseEntity<BaseResponse<LectureScheduleRequestDto>> {
+        val result = lectureService.putLecturePlace(lectureScheduleRequestDto, id)
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
+    }
+
+    /**
+     * 강의 정보 변경 Api
+     */
+    @Operation(summary = "강의 정보 변경", description = "강의 정보 변경 Api 입니다")
+    @PutMapping("/lectureInfo/{id}")
+    private fun putLectureInfo(@Valid @RequestBody lectureScheduleRequestDto: LectureScheduleRequestDto, @PathVariable id: Long):
+            ResponseEntity<BaseResponse<LectureScheduleRequestDto>> {
+        val result = lectureService.putLectureInfo(lectureScheduleRequestDto, id)
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
+    }
+
+    /**
+     * 수강신청 시작 변경 Api
+     */
+    @Operation(summary = "수강신청 시작 일정 변경", description = "수강신청 시작 변경 Api 입니다")
+    @PutMapping("/periodStartDateTime/{id}")
+    private fun putRegisterStartDateTime(@Valid @RequestBody registerPeriodRequestDto: RegisterPeriodRequestDto, @PathVariable id: Long):
+            ResponseEntity<BaseResponse<RegisterPeriodRequestDto>> {
+        val result = lectureService.putRegisterStartDateTime(registerPeriodRequestDto, id)
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
+    }
+
+    /**
+     * 수강신청 종료 변경 Api
+     */
+    @Operation(summary = "수강신청 종료 일정 변경", description = "수강신청 시작 변경 Api 입니다")
+    @PutMapping("/periodEndDateTime/{id}")
+    private fun putRegisterEndDateTime(@Valid @RequestBody registerPeriodRequestDto: RegisterPeriodRequestDto, @PathVariable id: Long):
+            ResponseEntity<BaseResponse<RegisterPeriodRequestDto>> {
+        val result = lectureService.putRegisterEndDateTime(registerPeriodRequestDto, id)
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
     }
 }

@@ -2,17 +2,10 @@ spring:
   application:
     name: checkcheck
 
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: "jdbc:mysql://mysql-container:3306/checkcheck_db?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul"
-#    username: checkcheck_admin
-#    password: checkcheck
-#
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://localhost:3306/example?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul"
-    username: yhj
-    password: yhj123456789
+    url: "jdbc:mysql://mysql-container:3306/checkcheck_db?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul"
+    username: checkcheck_admin
+    password: checkcheck
 
   jpa:
     database: mysql

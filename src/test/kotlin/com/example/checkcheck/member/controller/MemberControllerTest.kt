@@ -29,9 +29,10 @@ class MemberControllerTest(
 
     val testEmail = "test@test.com"
     val testPassword = "testtest1@"
+    val testconfirmPassword = "testtest1@"
     val testName = "test"
     val signUpDto = SignUpDto(
-        testEmail, testPassword, testName
+        testEmail, testPassword, testconfirmPassword, testName
     )
     val loginDto = LoginDto(
         testEmail, testPassword
@@ -49,7 +50,7 @@ class MemberControllerTest(
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/api/member/signup")
-                .content("{\"email\":\"test@test.com\", \"password\":\"testtest1@\", \"name\":\"test\"}")
+                .content("{\"email\":\"test@test.com\", \"password\":\"testtest1@\", \"confirmPassword\":\"testtest1@\",\"name\":\"test\"}")
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(
             status().isCreated
@@ -62,7 +63,7 @@ class MemberControllerTest(
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/api/member/signup")
-                .content("{\"email\":\"test@test.com\", \"password\":\"testtest1@\", \"name\":\"test\"}")
+                .content("{\"email\":\"test@test.com\", \"password\":\"testtest1@\", \"confirmPassword\":\"testtest1@\", \"name\":\"test\"}")
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(
             jsonPath("$.data").value("회원가입이 완료되었습니다!")
@@ -75,7 +76,7 @@ class MemberControllerTest(
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/api/member/signup")
-                .content("{\"email\":\"testtest.com\", \"password\":\"testtest1@\", \"name\":\"test\"}")
+                .content("{\"email\":\"testtest.com\", \"password\":\"testtest1@\", \"confirmPassword\":\"testtest1@\", \"name\":\"test\"}")
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(
             status().isBadRequest
@@ -98,7 +99,7 @@ class MemberControllerTest(
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/api/member/signup")
-                .content("{\"email\":\"testtest.com\", \"password\":\"testtes\", \"name\":\"test\"}")
+                .content("{\"email\":\"testtest.com\", \"password\":\"testtes\", \"confirmPassword\":\"testtest1@\", \"name\":\"test\"}")
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(
             status().isBadRequest
@@ -121,7 +122,7 @@ class MemberControllerTest(
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/api/member/signup")
-                .content("{\"password\":\"testtest1@\", \"name\":\"test\"}")
+                .content("{\"password\":\"testtest1@\", \"confirmPassword\":\"testtest1@\", \"name\":\"test\"}")
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(
             status().isBadRequest
@@ -144,7 +145,7 @@ class MemberControllerTest(
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/api/member/signup")
-                .content("{\"email\":\"testtest.com\", \"name\":\"test\"}")
+                .content("{\"email\":\"testtest.com\", \"confirmPassword\":\"testtest1@\", \"name\":\"test\"}")
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(
             status().isBadRequest
@@ -167,7 +168,7 @@ class MemberControllerTest(
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/api/member/signup")
-                .content("{\"email\":\"testtest.com\", \"password\":\"testtest1@\"}")
+                .content("{\"email\":\"testtest.com\", \"password\":\"testtest1@\", \"confirmPassword\":\"testtest1@\"}")
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(
             status().isBadRequest

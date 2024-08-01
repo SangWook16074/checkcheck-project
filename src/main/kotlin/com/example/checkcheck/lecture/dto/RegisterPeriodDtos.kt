@@ -7,30 +7,31 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 data class RegisterPeriodRequestDto(
-    val id: Long?,
+    val id: Long? = null,
 
-    @field:NotBlank(message = "수강신청 시작시간을 입력해주세요.")
+    @field:NotBlank(message = "수강신청 시작 일정를 입력해주세요.")
     @field:Pattern(
-        regexp = "^([12]\\d{3})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])\\s([01]\\d|2[0-3]):([0-5]\\d)\$",
-        message = "시간 형식을 확인해주세요! yyyy-MM-dd HH:mm"
+        regexp = "^([0-9]{2})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01]\\d|2[0-3]):([0-5]\\d)\$",
+        message = "형식을 확인해주세요! yy-MM-dd HH:mm"
     )
-    @JsonProperty("registerStartAt")
-    private var _startAt: String?,
+    @JsonProperty("registerStartDateTime")
+    val registerStartDateTime: String,
 
-    @field:NotBlank(message = "수강신청 종료시간을 입력해주세요.")
+    @field:NotBlank(message = "수강신청 종료 일정를 입력해주세요.")
     @field:Pattern(
-        regexp = "^([12]\\d{3})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])\\s([01]\\d|2[0-3]):([0-5]\\d)\$",
-        message = "시간 형식을 확인해주세요! yyyy-MM-dd HH:mm"
+        regexp = "^([0-9]{2})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01]\\d|2[0-3]):([0-5]\\d)\$",
+        message = "형식을 확인해주세요! yy-MM-dd HH:mm"
     )
-    @JsonProperty("registerEndAt")
-    private var _endAt: String?
+    @JsonProperty("registerEndDateTime")
+    val registerEndDateTime: String
 ) {
-    val startAt: LocalDateTime
-        get() = _startAt!!.toLocalDateTime()
+    val registerStartLocalDateTime: LocalDateTime
+        get() = registerStartDateTime.toLocalDateTime()
 
-    val endAt: LocalDateTime
-        get() = _endAt!!.toLocalDateTime()
+    val registerEndLocalDateTime: LocalDateTime
+        get() = registerEndDateTime.toLocalDateTime()
+
 
     private fun String.toLocalDateTime(): LocalDateTime =
-        LocalDateTime.parse(this, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+        LocalDateTime.parse(this, DateTimeFormatter.ofPattern("yy-MM-dd HH:mm"))
 }
