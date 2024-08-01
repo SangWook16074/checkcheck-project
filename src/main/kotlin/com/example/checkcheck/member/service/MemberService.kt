@@ -27,14 +27,11 @@ class MemberService(
      * 회원 가입
      */
     fun signup(signUpDto: SignUpDto) : String {
-//        var member : Member? = memberRepository.findByEmail(signUpDto.email)
-//        /**
-//         *  중복 검사
-//          */
-//        if (member != null) {
-//            throw RuntimeException("이미 가입한 회원입니다!")
-//        }
 
+        // 비밀번호 확인
+        checkPassword(signUpDto.password, signUpDto.confirmPassword)
+
+        // 회원정보 저장
         val member = memberRepository.save(signUpDto.toMember())
 
         val memberRole = MemberRole(
@@ -48,6 +45,27 @@ class MemberService(
     }
 
     /**
+     * 비밀번호 확인
+     */
+    fun checkPassword(password: String, confirmPassword: String): String{
+        if(password != confirmPassword) {
+            throw RuntimeException("비밀번호가 일치하지 않습니다.")
+        }
+        return "비밀번호가 일치합니다."
+    }
+
+    /**
+     * 이메일 중복 확인
+     */
+    fun checkEmailExists(email: String): String {
+        val exists = memberRepository.existsByEmail(email)
+        if(exists) {
+            throw RuntimeException("이미 가입된 이메일입니다.")
+        }
+        return "이메일 확인이 완료되었습니다."
+    }
+
+    /**
      * 로그인 -> 토큰 발행
      */
 
@@ -56,13 +74,6 @@ class MemberService(
         val authentication = authenticationManagerBuilder.`object`.authenticate(authenticationToken)
 
         return jwtTokenProvider.createToken(authentication)
-    }
-
-    /**
-     * 이메일 중복 확인
-     */
-    fun checkEmailExists(email: String): Boolean {
-        return memberRepository.existsByEmail(email)
     }
 
 }

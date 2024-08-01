@@ -19,15 +19,23 @@ data class SignUpDto(
     @JsonProperty("password")
     private val _password : String?,
 
+    @field:NotBlank(message = "비밀번호를 한번 더 입력해주세요!")
+    @JsonProperty("confirmPassword")
+    private val _confirmPassword: String?,
+
     @field:NotBlank(message = "이름을 입력해주세요!")
     @JsonProperty("name")
     private val _name : String?,
+
 ) {
     val email : String
         get() = _email!!
 
     val password : String
         get() = _password!!
+
+    val confirmPassword : String
+        get() = _confirmPassword!!
 
     val name : String
         get() = _name!!
@@ -36,6 +44,7 @@ data class SignUpDto(
         id = null,
         email = email,
         password = password,
+        confirmpassword = confirmPassword,
         name = name,
     )
 }

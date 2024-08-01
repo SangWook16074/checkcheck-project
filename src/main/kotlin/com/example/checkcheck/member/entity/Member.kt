@@ -17,6 +17,9 @@ class Member(
     @Column(nullable = false, length = 1000)
     val password : String,
 
+    @Column(nullable = false, length = 1000)
+    val confirmpassword : String,
+
     @Column(nullable = false, length = 100)
     val name : String,
 ) {
