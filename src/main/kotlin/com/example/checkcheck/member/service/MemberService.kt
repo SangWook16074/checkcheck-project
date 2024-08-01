@@ -68,7 +68,6 @@ class MemberService(
     /**
      * 로그인 -> 토큰 발행
      */
-
     fun login(loginDto: LoginDto) : TokenInfo {
         val authenticationToken = UsernamePasswordAuthenticationToken(loginDto.email, loginDto.password)
         val authentication = authenticationManagerBuilder.`object`.authenticate(authenticationToken)

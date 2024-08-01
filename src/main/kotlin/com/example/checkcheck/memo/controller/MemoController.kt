@@ -23,17 +23,17 @@ class MemoController (
      * 모든 메모를 조회하는 Api
      */
     @Operation(summary = "메모 조회", description = "메모를 조회하는 Api입니다.")
-    @GetMapping
+    @GetMapping("/list")
     private fun getMemos() : ResponseEntity<BaseResponse<List<MemoResponseDto>>> {
         val result = memoService.getMemos()
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponse(data = result))
     }
 
     /**
-    * 메모를 생성하는 Api
+    * 메모 생성 Api
     */
     @Operation(summary = "메모 생성", description = "메모를 생성하는 Api입니다.")
-    @PostMapping
+    @PostMapping()
     private fun postMemo(@Valid @RequestBody memoRequestDto: MemoRequestDto) :
             ResponseEntity<BaseResponse<MemoResponseDto>> {
         val result = memoService.postMemos(memoRequestDto)

@@ -1,22 +1,19 @@
 package com.example.checkcheck.memo.dto
 
-import com.example.checkcheck.lecture.entity.Lecture
-import com.example.checkcheck.member.entity.Member
-import com.example.checkcheck.memo.entity.Memo
+import jakarta.validation.constraints.NotNull
 
 
 data class MemoRequestDto(
     var id: Long?,
+
     var content: String,
-    var member: Member?,
-    var lecture: Lecture?,
-) {
-    fun toEntity(): Memo = Memo(
-        content = content,
-        member = member!!,
-        lecture = lecture!!,
-    )
-}
+
+    @field:NotNull(message = "멤버 ID는 필수입니다.")
+    var memberId: Long?,
+
+    @field:NotNull(message = "강의 ID는 필수입니다.")
+    var lectureId: Long?,
+)
 
 data class MemoResponseDto(
     var id: Long?,

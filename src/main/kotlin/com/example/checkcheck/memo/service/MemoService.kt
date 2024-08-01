@@ -1,6 +1,8 @@
 package com.example.checkcheck.memo.service
 
 import com.example.checkcheck.common.exceptions.memo.MemoException
+import com.example.checkcheck.lecture.repository.LectureRepository
+import com.example.checkcheck.member.repository.MemberRepository
 import com.example.checkcheck.memo.dto.MemoRequestDto
 import com.example.checkcheck.memo.dto.MemoResponseDto
 import com.example.checkcheck.memo.entity.Memo
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service
 @Service
 class MemoService (
     private val memoRepository: MemoRepository,
+    private val lectureRepository: LectureRepository,
+    private val memberRepository: MemberRepository
 ) {
 
     /**
@@ -25,8 +29,19 @@ class MemoService (
      * 새로운 메모 생성
      */
     fun postMemos(memoRequestDto: MemoRequestDto): MemoResponseDto {
-        val memo = memoRepository.save(memoRequestDto.toEntity())
-        return memo.toResponse()
+        val member = memberRepository.findByIdOrNull(memoRequestDto.memberId)
+            ?: throw MemoException(msg = "존재하지 않는 멤버 ID입니다.")
+        val lecture = lectureRepository.findByIdOrNull(memoRequestDto.lectureId)
+            ?: throw MemoException(msg = "존재하지 않는 강의 ID입니다.")
+
+        val memo = Memo(
+            content = memoRequestDto.content,
+            member = member,
+            lecture = lecture
+        )
+
+        val savedMemo = memoRepository.save(memo)
+        return savedMemo.toResponse()
     }
 
     /**

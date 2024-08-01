@@ -38,7 +38,6 @@ class MemberControllerTest(
         testEmail, testPassword
     )
 
-
     val loginSuccessToken = TokenInfo(
         grantType = "Bearer",
         accessToken = "testToken"

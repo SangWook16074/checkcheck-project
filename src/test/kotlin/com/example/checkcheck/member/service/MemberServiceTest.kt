@@ -8,7 +8,6 @@ import com.example.checkcheck.member.entity.Member
 import com.example.checkcheck.member.entity.MemberRole
 import com.example.checkcheck.member.repository.MemberRepository
 import com.example.checkcheck.member.repository.MemberRoleRepository
-import com.example.checkcheck.member.service.MemberService
 import io.mockk.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -71,7 +70,6 @@ class MemberServiceTest {
         verify(exactly = 1) { memberRepository.existsByEmail(signUpDto.email) }
     }
 
-
     @Test
     fun `회원가입에 성공한 요청은 토큰을 반환한다`() {
         val loginSuccessToken = TokenInfo(
@@ -84,13 +82,11 @@ class MemberServiceTest {
         )
         every { authenticationManagerBuilder.`object`.authenticate(any()) } returns UsernamePasswordAuthenticationToken(testEmail, testPassword)
         every { jwtTokenProvider.createToken(authenticationManagerBuilder.`object`.authenticate(any())) } returns loginSuccessToken
-        //every { jwtTokenProvider.createToken(any()) } returns loginSuccessToken
 
         val result = memberService.login(loginDto)
 
         verify(exactly = 1) { authenticationManagerBuilder.`object`.authenticate(any()) }
         verify(exactly = 1) { jwtTokenProvider.createToken(authenticationManagerBuilder.`object`.authenticate(any())) }
-        //verify(exactly = 1) { jwtTokenProvider.createToken(any()) }
 
         assertEquals(result.grantType, "Bearer")
         assertEquals(result.accessToken, "testToken")
