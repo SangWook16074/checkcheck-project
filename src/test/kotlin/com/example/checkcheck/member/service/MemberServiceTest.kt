@@ -8,6 +8,7 @@ import com.example.checkcheck.member.entity.Member
 import com.example.checkcheck.member.entity.MemberRole
 import com.example.checkcheck.member.repository.MemberRepository
 import com.example.checkcheck.member.repository.MemberRoleRepository
+import com.example.checkcheck.member.service.MemberService
 import io.mockk.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -50,18 +51,10 @@ class MemberServiceTest {
     fun `회원가입에 성공할 경우 성공 메시지가 반환된다`() {
         every { memberRoleRepository.save(any()) } returns memberRole
         every { memberRepository.save(any()) } returns member
-        //every { memberRepository.findByEmail(testEmail) } returns null
-        every { memberRepository.existsByEmail(testEmail) } returns false
 
         val result = memberService.signup(signUpDto)
 
-
-        //verify(exactly = 1) { memberRepository.findByEmail(signUpDto.email) }
         verify(exactly = 1) { memberRepository.save(any()) }
-
-//        verify(exactly = 1) { memberRepository.save(any()) }
-        verify(exactly = 1) { memberRepository.findByEmail(signUpDto.email) }
-
         verify(exactly = 1) { memberRoleRepository.save(any()) }
 
         assertEquals("회원가입이 완료되었습니다!", result)
@@ -70,7 +63,6 @@ class MemberServiceTest {
 
     @Test
     fun `이메일은 중복될 수 없다`() {
-        //every { memberRepository.findByEmail(testEmail) } returns member
         every { memberRepository.existsByEmail(testEmail) } returns true
 
         val result = memberRepository.existsByEmail(signUpDto.email)
@@ -79,14 +71,6 @@ class MemberServiceTest {
         verify(exactly = 1) { memberRepository.existsByEmail(signUpDto.email) }
     }
 
-
-//    @Test
-//    fun `비밀번호와 비밀번호 확인이 일치하지 않으면 예외가 발생한다`() {
-//        val invalidSignUpDto = SignUpDto(
-//            testEmail, testPassword, "differentPassword", testName
-//        )
-//        assertThrows<IllegalArgumentException> { memberService.signup(invalidSignUpDto) }
-//    }
 
     @Test
     fun `회원가입에 성공한 요청은 토큰을 반환한다`() {
@@ -99,14 +83,14 @@ class MemberServiceTest {
             _password = testPassword,
         )
         every { authenticationManagerBuilder.`object`.authenticate(any()) } returns UsernamePasswordAuthenticationToken(testEmail, testPassword)
-        //every { jwtTokenProvider.createToken(authenticationManagerBuilder.`object`.authenticate(any())) } returns loginSuccessToken
-        every { jwtTokenProvider.createToken(any()) } returns loginSuccessToken
+        every { jwtTokenProvider.createToken(authenticationManagerBuilder.`object`.authenticate(any())) } returns loginSuccessToken
+        //every { jwtTokenProvider.createToken(any()) } returns loginSuccessToken
 
         val result = memberService.login(loginDto)
 
         verify(exactly = 1) { authenticationManagerBuilder.`object`.authenticate(any()) }
-        //verify(exactly = 1) { jwtTokenProvider.createToken(authenticationManagerBuilder.`object`.authenticate(any())) }
-        verify(exactly = 1) { jwtTokenProvider.createToken(any()) }
+        verify(exactly = 1) { jwtTokenProvider.createToken(authenticationManagerBuilder.`object`.authenticate(any())) }
+        //verify(exactly = 1) { jwtTokenProvider.createToken(any()) }
 
         assertEquals(result.grantType, "Bearer")
         assertEquals(result.accessToken, "testToken")

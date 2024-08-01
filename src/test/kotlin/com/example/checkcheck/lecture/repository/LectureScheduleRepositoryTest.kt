@@ -30,6 +30,7 @@ class LectureScheduleRepositoryTest @Autowired constructor(
             id = null,
             email = "test@test.com",
             password = "testtest1@",
+            confirmpassword = "testtest1@",
             name = "test"
         )
 
@@ -60,5 +61,6 @@ class LectureScheduleRepositoryTest @Autowired constructor(
         assertThat(result.lecture.member.name).isEqualTo("test")
         assertThat(result.lecture.member.email).isEqualTo("test@test.com")
         assertThat(result.lecture.member.password).isEqualTo("testtest1@")
+        assertThat(result.lecture.member.confirmpassword).isEqualTo("testtest1@")
     }
 }

@@ -34,11 +34,13 @@ class LectureServiceTest {
     fun `강의 생성 테스트`() {
         val testEmail = "test@test.com"
         val testPassword = "testtest1@"
+        val testConfirmPassword = "testtest1@"
         val testName = "test"
         val member = Member(
             id = 1,
             email = testEmail,
             password = testPassword,
+            confirmpassword = testConfirmPassword,
             name = testName
         )
 
@@ -98,11 +100,13 @@ class LectureServiceTest {
     fun `강의 조회 테스트`() {
         val testEmail = "test@test.com"
         val testPassword = "testtest1@"
+        val testConfirmPassword = "testtest1@"
         val testName = "test"
         val member = Member(
             id = 1,
             email = testEmail,
             password = testPassword,
+            confirmpassword = testConfirmPassword,
             name = testName
         )
         val testLecture = Lecture(

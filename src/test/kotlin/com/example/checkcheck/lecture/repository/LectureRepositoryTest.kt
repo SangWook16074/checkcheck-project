@@ -56,6 +56,7 @@ class LectureRepositoryTest @Autowired constructor(
         assertThat(result.member.name).isEqualTo("test")
         assertThat(result.member.email).isEqualTo("test@test.com")
         assertThat(result.member.password).isEqualTo("testtest1@")
+        assertThat(result.member.confirmpassword).isEqualTo("testtest1@")
     }
 
     @Test

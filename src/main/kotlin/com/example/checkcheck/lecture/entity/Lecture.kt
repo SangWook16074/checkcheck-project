@@ -6,7 +6,6 @@ import com.example.checkcheck.lecture.dto.LectureScheduleDto
 import com.example.checkcheck.lecture.dto.MemberDto
 import jakarta.persistence.*
 import com.example.checkcheck.member.entity.Member
-import jakarta.persistence.*
 
 @Entity
 @Table(
@@ -23,7 +22,6 @@ class Lecture(
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = ForeignKey(name = "fk_lecture_id_member_id"))
     var member: Member
-
 ) {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "lecture", cascade = [CascadeType.ALL])
