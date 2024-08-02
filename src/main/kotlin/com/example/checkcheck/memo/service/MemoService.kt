@@ -61,4 +61,5 @@ class MemoService (
     fun deleteMemo(id: Long) {
         memoRepository.deleteById(id)
     }
+
 }
