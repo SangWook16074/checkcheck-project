@@ -17,4 +17,6 @@ interface LectureRepository : JpaRepository<Lecture, Long> {
     fun findAllByFetchJoin() : List<Lecture>
 
     fun findByMember(member: Member): List<Lecture>
+
+    fun countByMember(member: Member): Long
 }
