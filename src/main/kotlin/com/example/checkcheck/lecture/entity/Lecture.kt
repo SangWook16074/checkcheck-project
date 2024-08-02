@@ -19,7 +19,7 @@ class Lecture(
     @Column(nullable = false, updatable = false, length = 50)
     var title: String,
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = ForeignKey(name = "fk_lecture_id_member_id"))
     var member: Member
 ) {
