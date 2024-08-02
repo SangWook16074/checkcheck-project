@@ -8,6 +8,9 @@ import jakarta.persistence.*
 import com.example.checkcheck.member.entity.Member
 
 @Entity
+@Table(
+    uniqueConstraints = [UniqueConstraint(name = "uk_lecture_title", columnNames = ["title"])]
+)
 class Lecture(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,7 +20,7 @@ class Lecture(
     var title: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = ForeignKey(name = "fk_lecture_member_id"))
+    @JoinColumn(foreignKey = ForeignKey(name = "fk_lecture_id_member_id"))
     var member: Member
 ) {
 
