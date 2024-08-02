@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 class MemberControllerTest(
 
 ) {
-
     @Autowired
     private lateinit var mockMvc: MockMvc
 
