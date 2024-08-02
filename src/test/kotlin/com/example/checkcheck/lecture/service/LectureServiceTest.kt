@@ -15,20 +15,19 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.springframework.data.repository.findByIdOrNull
-import java.time.LocalDateTime
 import kotlin.test.assertEquals
 
 class LectureServiceTest {
-    private val memberRepository : MemberRepository = mockk()
-    private val lectureRepository : LectureRepository = mockk()
-    private val registerPeriodRepository : RegisterPeriodRepository = mockk()
-    private val lectureScheduleRepository : LectureScheduleRepository = mockk()
-    private val lectureService : LectureService
-    = LectureService(
+    private val memberRepository: MemberRepository = mockk()
+    private val lectureRepository: LectureRepository = mockk()
+    private val registerPeriodRepository: RegisterPeriodRepository = mockk()
+    private val lectureScheduleRepository: LectureScheduleRepository = mockk()
+    private val lectureService: LectureService = LectureService(
         memberRepository = memberRepository,
         lectureRepository = lectureRepository,
         registerPeriodRepository = registerPeriodRepository,
-        lectureScheduleRepository = lectureScheduleRepository,)
+        lectureScheduleRepository = lectureScheduleRepository,
+    )
 
     @Test
     fun `강의 생성 테스트`() {
@@ -80,6 +79,7 @@ class LectureServiceTest {
         every { memberRepository.findByIdOrNull(1) } returns member
         every { lectureRepository.save(any()) } returns testLecture
         every { lectureRepository.findByTitle(testLectureRequestDto.title) } returns null
+        every { lectureRepository.countByMember(member) } returns 0
         every { registerPeriodRepository.save(any()) } returns testRegisterPeriod
         every { lectureScheduleRepository.save(any()) } returns testLectureSchedule
 
@@ -93,6 +93,7 @@ class LectureServiceTest {
 
         assertEquals(result, "강의가 등록되었습니다!")
     }
+
 
     @Test
     fun `강의 조회 테스트`() {

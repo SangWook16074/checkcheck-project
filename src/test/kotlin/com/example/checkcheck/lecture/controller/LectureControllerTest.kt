@@ -140,5 +140,5 @@ class LectureControllerTest {
 
         verify(exactly = 0) { lectureService.postLectures(any(), 1L) }
     }
-
+    
 }

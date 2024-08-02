@@ -33,16 +33,22 @@ class LectureService (
 
     // 강의 개설
     fun postLectures(lectureRequestDto: LectureRequestDto, memberId: Long): String {
-        val existingLecture = lectureRepository.findByTitle(lectureRequestDto.title)
-
-        // 강의명 중복 검사
-        if (existingLecture != null) {
-            throw RuntimeException("이미 존재하는 강의이름입니다!")
-        }
 
         // 사용자 유효성 검사
         val member = memberRepository.findByIdOrNull(memberId)
             ?: throw RuntimeException("존재하지 않는 사용자입니다!")
+
+        // 강의명 중복 검사
+        val existingLecture = lectureRepository.findByTitle(lectureRequestDto.title)
+        if (existingLecture != null) {
+            throw RuntimeException("이미 존재하는 강의이름입니다!")
+        }
+
+        // 사용자가 생성한 강의 수 확인
+        val existingLecturesCount = lectureRepository.countByMember(member)
+        if (existingLecturesCount >= 4) {
+            throw RuntimeException("한 사용자는 최대 4개의 강의만 생성할 수 있습니다.")
+        }
 
         val lecture = Lecture(
             id = null,
